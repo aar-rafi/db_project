@@ -1,0 +1,304 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id                Int                @id
+  slug              String
+  name              String
+  released          String
+  tba               Boolean
+  background_image  String
+  rating            Float
+  rating_top        Float
+  ratings_count     Int
+  added_count       Int
+  added_by_status   AddedByStatus?
+  metacritic        Int?
+  playtime          Int
+  suggestions_count Int
+  updated           String
+  reviews_count     Int
+  description       String?
+  clips             String
+  platforms         PlatformOnGames[]
+  parent_platforms  ParentPlatform[]
+  genres            Genre[]
+  stores            Store[]
+  tags              Tag[]
+  esrb_rating       EsrbRating[]
+  short_screenshots ShortScreenshot[]
+  rating_level      GameRatingLevels[]
+  Publisher         Publisher?         @relation(fields: [publisherId], references: [id])
+  publisherId       Int?
+  Reviews           Reviews[]
+  Collection        Collection[]
+  Wishlist          Wishlist[]
+  news              News[]
+  Events            Events[]
+
+  @@unique([slug, name])
+}
+
+model Publisher {
+  id          Int     @id @default(autoincrement())
+  name        String
+  since       String
+  image       String?
+  games_count Int
+  description String?
+  games       Game[]
+
+  @@unique([name])
+  @@map("publisher")
+}
+
+model Person {
+  id               Int             @id @default(autoincrement())
+  name             String
+  email            String
+  password         String
+  joined           DateTime
+  profile_picture  String?
+  bio              String?
+  socialmedia_link String
+  Reviews          Reviews[]
+  Collection       Collection[]
+  Wishlist         Wishlist[]
+  Comments         Comments[]
+  Participation    Participation[]
+
+  @@unique([email])
+  @@map("person")
+}
+
+model RatingLevel {
+  id          Int                @id
+  title       String
+  game_rating GameRatingLevels[]
+
+  @@unique([title])
+  @@map("rating_level")
+}
+
+model GameRatingLevels {
+  count        Int
+  percent      Float
+  games        Game        @relation(fields: [gameId], references: [id])
+  rating_level RatingLevel @relation(fields: [ratingId], references: [id])
+  gameId       Int
+  ratingId     Int
+
+  @@unique([gameId, ratingId])
+  @@map("game_rating")
+}
+
+model AddedByStatus {
+  id      Int  @id @default(autoincrement())
+  yet     Int
+  owned   Int
+  beaten  Int
+  toplay  Int
+  dropped Int
+  playing Int
+  game    Game @relation(fields: [gameId], references: [id])
+  gameId  Int
+
+  @@unique([gameId])
+  @@map("added_by_status")
+}
+
+model Platform {
+  id               Int               @id
+  name             String
+  slug             String
+  image            String?
+  year_end         Int?
+  year_start       Int?
+  games_count      Int
+  image_background String
+  games            PlatformOnGames[]
+
+  @@unique([slug])
+  @@map("platform")
+}
+
+model PlatformOnGames {
+  game                     Game     @relation(fields: [gameId], references: [id])
+  platform                 Platform @relation(fields: [platformId], references: [id])
+  minimum_requirements     String?
+  recommended_requirements String?
+  gameId                   Int
+  platformId               Int
+
+  @@id([gameId, platformId])
+  @@map("platform_on_games")
+}
+
+model ParentPlatform {
+  id    Int    @id
+  name  String
+  slug  String
+  games Game[]
+
+  @@unique([slug])
+  @@map("parent_platform")
+}
+
+model Genre {
+  id               Int    @id
+  name             String
+  slug             String
+  games_count      Int
+  image_background String
+  games            Game[]
+
+  @@unique([slug])
+  @@map("genre")
+}
+
+model Store {
+  id               Int    @id
+  name             String
+  slug             String
+  domain           String
+  games_count      Int
+  image_background String
+  game             Game[]
+
+  @@unique([slug])
+  @@map("store")
+}
+
+model Tag {
+  id               Int    @id
+  name             String
+  slug             String
+  language         String
+  games_count      Int
+  image_background String
+  games            Game[]
+
+  @@unique([slug])
+  @@map("tag")
+}
+
+model EsrbRating {
+  id    Int    @id
+  name  String
+  slug  String
+  games Game[]
+
+  @@unique([slug])
+  @@map("esrb_rating")
+}
+
+model ShortScreenshot {
+  id     Int    @id
+  image  String
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId Int
+
+  @@unique([image])
+  @@map("short_screenshot")
+}
+
+model Reviews {
+  game        Game   @relation(fields: [gameId], references: [id])
+  person      Person @relation(fields: [personId], references: [id])
+  gameId      Int
+  personId    Int
+  rating      Float
+  review_text String
+
+  @@unique([gameId, personId])
+  @@map("reviews")
+}
+
+model Collection {
+  person   Person @relation(fields: [personId], references: [id])
+  game     Game   @relation(fields: [gameId], references: [id])
+  personId Int
+  gameId   Int
+
+  @@unique([personId, gameId])
+  @@map("collection")
+}
+
+model Wishlist {
+  person   Person @relation(fields: [personId], references: [id])
+  game     Game   @relation(fields: [gameId], references: [id])
+  personId Int
+  gameId   Int
+
+  @@unique([personId, gameId])
+  @@map("wishlist")
+}
+
+model News {
+  id             Int        @id @default(autoincrement())
+  title          String
+  image          String?
+  author         String
+  description    String
+  date           DateTime
+  likes_count    Int
+  comments_count Int
+  Comments       Comments[]
+  game           Game       @relation(fields: [gameId], references: [id])
+  gameId         Int
+
+  @@unique([title])
+  @@map("news")
+}
+
+model Comments {
+  comment  String
+  like     Boolean
+  date     DateTime
+  person   Person   @relation(fields: [personId], references: [id])
+  personId Int
+  news     News     @relation(fields: [newsId], references: [id])
+  newsId   Int
+
+  @@unique([personId, newsId])
+  @@map("comments")
+}
+
+model Events {
+  id             Int             @id @default(autoincrement())
+  title          String
+  image          String?
+  description    String
+  date           DateTime
+  organizer      String
+  likes_count    Int
+  comments_count Int
+  game           Game            @relation(fields: [gameId], references: [id])
+  gameId         Int
+  Participation  Participation[]
+
+  @@unique([title])
+  @@map("events")
+}
+
+model Participation {
+  date     DateTime
+  comment  String
+  like     Boolean
+  person   Person   @relation(fields: [personId], references: [id])
+  event    Events   @relation(fields: [eventId], references: [id])
+  personId Int
+  eventId  Int
+
+  @@unique([personId, eventId])
+  @@map("participation")
+}
