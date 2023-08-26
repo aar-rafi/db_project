@@ -3,6 +3,7 @@ import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
 import PlatformIcons from "./PlatformIcons";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
+import { motion } from "framer-motion";
 
 interface Props {
   game: Game;
@@ -10,6 +11,11 @@ interface Props {
 
 const GameCard = ({ game }: Props) => {
   return (
+    // <motion.div
+    //   whileHover={{ scale: 1.05 }}
+    //   whileTap={{ scale: 0.95 }}
+    //   transition={{ duration: 0.1 }}
+    // >
     <Card>
       <Image src={getCroppedImageUrl(game.background_image)} />
       <CardBody bgColor={"blackAlpha.300"}>
@@ -22,6 +28,7 @@ const GameCard = ({ game }: Props) => {
         <Heading fontSize={"x-large"}>{game.name}</Heading>
       </CardBody>
     </Card>
+    //</motion.div>
   );
 };
 
