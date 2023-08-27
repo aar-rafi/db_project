@@ -13,7 +13,7 @@ const routes = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: "demo", element: <Demo /> },
-      { path: "game/:id", element: <GameDetails /> },
+      { path: "games/:slug", element: <GameDetails /> },
     ],
   },
   // { path: "/demo", element: <Demo /> },
