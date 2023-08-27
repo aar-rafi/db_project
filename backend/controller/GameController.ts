@@ -28,7 +28,7 @@ export const getGenre = async (_req: Request, res: Response) => {
     const tr = [] as any;
     tr.push({ re: result.rows });
     const response = result.rows;
-    console.log(response);
+    //console.log(response);
 
     res.status(200).json(response);
   } catch (error: any) {

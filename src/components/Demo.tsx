@@ -1,18 +1,16 @@
-import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
 import {
-  List,
-  ListItem,
-  ListIcon,
   Button,
   Flex,
   Image,
+  List,
+  ListIcon,
+  ListItem,
 } from "@chakra-ui/react";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
-import Carousel from "./Carousel";
-import { link } from "fs";
 import "../scss/_demo.scss";
-import useData from "../hooks/useData";
+import Carousel from "./Carousel";
 
 export const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -77,7 +75,13 @@ const Demo = () => {
           <Flex height={"fit-content"} width={"container.md"}>
             <Carousel duration={5}>
               {item.screenshots.map((ss) => (
-                <Image src={ss.image} className="Items" />
+                <Image
+                  src={ss.image}
+                  className="Items"
+                  loading="lazy"
+                  objectFit={"cover"}
+                  transition={"ease-in-out"}
+                />
               ))}
             </Carousel>
           </Flex>
