@@ -71,11 +71,12 @@ const Demo = () => {
         <ListItem key={item.id}>
           <ListIcon as={MdCheckCircle} color="green.500" />
           {item.name + " " + item.platforms.map((item) => item.name)}
-          <Button variant="link">{item.background_image} </Button>
+          {/* <Button variant="link">{item.background_image} </Button> */}
           <Flex height={"fit-content"} width={"container.md"}>
             <Carousel duration={5}>
               {item.screenshots.map((ss) => (
                 <Image
+                  key={ss.image}
                   src={ss.image}
                   className="Items"
                   loading="lazy"
