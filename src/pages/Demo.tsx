@@ -10,7 +10,7 @@ import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { MdCheckCircle } from "react-icons/md";
 import "../scss/_demo.scss";
-import Carousel from "./Carousel";
+import Carousel from "../components/Carousel";
 
 export const api = axios.create({
   baseURL: "http://localhost:5000",

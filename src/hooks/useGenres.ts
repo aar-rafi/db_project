@@ -1,12 +1,6 @@
-import { AxiosResponse } from "axios";
 import genres from "../data/genres";
-import { Game } from "./useGames";
-//import useData from "./useData";
-import useOracle from "./useOracle";
-import apiServer from "../services/api-server";
 import { useQuery } from "@tanstack/react-query";
-
-import { useEffect, useState } from "react";
+import apiServer from "../services/api-server";
 
 export interface Genre {
   id: number;
