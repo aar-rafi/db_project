@@ -29,17 +29,16 @@ const GameDetails = () => {
 
   return (
     <>
-      {/* <div className={`${styles.hero}`} style={heroStyle}>
+      <div className={`${styles.hero}`} style={heroStyle}>
         <div className="container">
           <Heading alignContent={"center"} className={`${styles.gameName}`}>
             {game.name}
           </Heading>
         </div>
-      </div> */}
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1}>
+      </div>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1} marginY={10}>
         <GridItem gridArea={"auto"}>
           <GameScreenshots gameId={game.id} />
-          <GameTrailers gameId={game.id} />
         </GridItem>
         <GridItem>
           <Heading my={10}>{game.name}</Heading>
@@ -48,6 +47,7 @@ const GameDetails = () => {
           <GameAttributes game={game} />
         </GridItem>
       </SimpleGrid>
+      <GameTrailers gameId={game.id} />
     </>
   );
 };
