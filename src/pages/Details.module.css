@@ -1,0 +1,26 @@
+.hero {
+    background-color: rgba(155, 202, 202, 0.378);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: soft-light;
+    color: rgba(21, 17, 17, 0.875);
+    padding-top: 200px;
+    padding-bottom: 200px;
+  }
+
+  .gameName {
+    position: relative; /* Required for the pseudo-element */
+    display: inline-block; /* Display the line only below the text */
+  }
+  
+  .gameName::after {
+    content: ''; /* Create the line */
+    position: absolute;
+    bottom: -5px; /* Position it below the text */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Center it accurately */
+    width: 100%; /* Adjust the width of the line */
+    height: 3px; /* Height of the line */
+    background-color: #94a49fea; /* Color of the line */
+  }
+  
