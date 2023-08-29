@@ -34,7 +34,7 @@ const Form1 = () => {
       <Flex>
         <FormControl mr="5%">
           <FormLabel htmlFor="user-name" fontWeight={"normal"}>
-            First name
+            User name
           </FormLabel>
           <Input id="user-name" placeholder="User name" />
         </FormControl>
@@ -290,19 +290,6 @@ const Form3 = () => {
           </FormHelperText>
         </FormControl>
 
-        {/* <FormControl id="file" mt={1}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
-            Upload Profile Picture
-          </FormLabel>
-          <Input type="file" />
-        </FormControl> */}
         <FormControl id="file" mt={1}>
           <FormLabel
             fontSize="sm"
@@ -367,10 +354,10 @@ export default function Multistep() {
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
+        maxWidth={700}
         p={6}
         m="10px auto"
-        mx="50%"
+        mx="55%"
         as="form"
       >
         <Progress
