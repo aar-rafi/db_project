@@ -11,8 +11,8 @@
     background-image: url(#{$imageUrl});
     background-size: cover;
     background-repeat: no-repeat;
-    filter: blur(3px); // Adjust the blur amount
-    opacity: 0.8; // Adjust the opacity as desired
+    filter: blur(1px); // Adjust the blur amount
+    opacity: 0.7; // Adjust the opacity as desired
     z-index: -1; // Place the overlay behind other content
   }
 }

@@ -22,10 +22,22 @@ import {
 import { useToast } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import "../scss/_registerform.scss";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/firebaseconfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const Form1 = () => {
+interface Form1Props {
+  email: string;
+  password: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Form1 = ({ email, password, setEmail, setPassword }: Form1Props) => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
@@ -43,7 +55,11 @@ const Form1 = () => {
         <FormLabel htmlFor="email" fontWeight={"normal"}>
           Email address
         </FormLabel>
-        <Input id="email" type="email" />
+        <Input
+          id="email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <FormHelperText>We&apos;ll never share your email.</FormHelperText>
       </FormControl>
 
@@ -56,6 +72,7 @@ const Form1 = () => {
             pr="4.5rem"
             type={show ? "text" : "password"}
             placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -214,6 +231,8 @@ const Form3 = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
 
+  const [user] = useAuthState(auth);
+
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setUploadedFile(file || null);
@@ -348,6 +367,44 @@ export default function Multistep() {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log(user);
+      toast({
+        title: "Account created.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      toast({
+        title: "Account creation failed.",
+        description: errorMessage,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="background-overlay-container">
       <Box
@@ -367,7 +424,16 @@ export default function Multistep() {
           mx="5%"
           isAnimated
         ></Progress>
-        {step === 1 ? <Form1 /> : <Form3 />}
+        {step === 1 ? (
+          <Form1
+            email={email}
+            setPassword={setPassword}
+            password={password}
+            setEmail={setEmail}
+          />
+        ) : (
+          <Form3 />
+        )}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
             <Flex>
@@ -407,14 +473,15 @@ export default function Multistep() {
                 colorScheme="red"
                 variant="solid"
                 onClick={() => {
+                  handleSubmit();
                   setProgress(100); //so tried do a round about way to fix it
-                  toast({
-                    title: "Account created.",
-                    description: "We've created your account for you.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                  });
+                  // toast({
+                  //   title: "Account created.",
+                  //   description: "We've created your account for you.",
+                  //   status: "success",
+                  //   duration: 3000,
+                  //   isClosable: true,
+                  // });
                 }}
               >
                 Submit
