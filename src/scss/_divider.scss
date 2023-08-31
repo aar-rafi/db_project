@@ -1,0 +1,34 @@
+// styles.scss
+
+// Import Chakra UI styles
+
+// Define your custom styles
+.my-divider {
+  display: grid;
+  grid-gap: 1rem;
+  margin-top: 1rem;
+
+  .divider-item {
+    position: relative;
+
+    .background {
+      position: absolute;
+      inset: 0;
+      height: 1.3px;
+      width: 100%;
+      background-color: transparent;
+      box-shadow: 0 0 1px #4df5cbe4, 0 0 20px #4df5cbe4 ;
+      filter: blur(2px);
+    }
+
+    .foreground {
+      position: absolute;
+      inset: 0;
+      height: 0.8px;
+      width: 100%;
+      background-color: #0ceeb6;
+      box-shadow: 0 0 1px #4df5cbe4, 0 0 20px #4df5cbe4 ;
+
+    }
+  }
+}

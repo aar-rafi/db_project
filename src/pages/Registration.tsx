@@ -389,7 +389,8 @@ export default function Multistep() {
         duration: 3000,
         isClosable: true,
       });
-      navigate("/");
+      setLoading(false);
+      navigate("/login");
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -402,11 +403,11 @@ export default function Multistep() {
         isClosable: true,
       });
     }
-    setLoading(false);
   };
 
   return (
-    <div className="background-overlay-container">
+    // <div className="background-overlay-container">
+    <>
       <Box
         borderWidth="1px"
         rounded="lg"
@@ -414,7 +415,7 @@ export default function Multistep() {
         maxWidth={700}
         p={6}
         m="10px auto"
-        mx="55%"
+        mx="auto 10px"
         as="form"
       >
         <Progress
@@ -490,6 +491,6 @@ export default function Multistep() {
           </Flex>
         </ButtonGroup>
       </Box>
-    </div>
+    </>
   );
 }
