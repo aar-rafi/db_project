@@ -28,7 +28,7 @@ const GameDetails = () => {
           </Heading>
         </div>
       </div>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1} marginY={10}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1} margin={10}>
         <GridItem gridArea={"auto"}>
           <GameScreenshots gameId={game.id} />
         </GridItem>

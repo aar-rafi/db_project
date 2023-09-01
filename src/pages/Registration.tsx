@@ -25,16 +25,23 @@ import "../scss/_registerform.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebaseconfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 interface Form1Props {
   email: string;
   password: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Form1 = ({ email, password, setEmail, setPassword }: Form1Props) => {
+const Form1 = ({
+  email,
+  password,
+  setEmail,
+  setPassword,
+  setUsername,
+}: Form1Props) => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
@@ -48,7 +55,11 @@ const Form1 = ({ email, password, setEmail, setPassword }: Form1Props) => {
           <FormLabel htmlFor="user-name" fontWeight={"normal"}>
             User name
           </FormLabel>
-          <Input id="user-name" placeholder="User name" />
+          <Input
+            id="user-name"
+            placeholder="User name"
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </FormControl>
       </Flex>
       <FormControl mt="2%">
@@ -369,19 +380,32 @@ export default function Multistep() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      console.log(user);
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: username,
+          })
+            .then(() => {
+              console.log(user.displayName);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error signing up:", error);
+        });
+      // const user = userCredential.user;
+      // console.log(user);
       toast({
         title: "Account created.",
         description: "We've created your account for you.",
@@ -431,6 +455,7 @@ export default function Multistep() {
             setPassword={setPassword}
             password={password}
             setEmail={setEmail}
+            setUsername={setUsername}
           />
         ) : (
           <Form3 />

@@ -7,6 +7,7 @@ import GameDetails from "./pages/GameDetails";
 import Registration from "./pages/Registration";
 import AuthRoutes from "./components/AuthRoutes";
 import Login from "./pages/Login";
+import HeroSection from "./pages/HeroSection";
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const routes = createBrowserRouter([
       { path: "games/:slug", element: <GameDetails /> },
       { path: "registration", element: <Registration /> },
       { path: "login", element: <Login /> },
+      { path: "hero", element: <HeroSection /> },
     ],
   },
 ]);

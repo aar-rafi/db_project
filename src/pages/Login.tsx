@@ -29,7 +29,7 @@ const Login = () => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      await login(email, password);
+      const userCre = await login(email, password);
       //await signup(email, password);
       navigate("/demo");
     } catch (error) {

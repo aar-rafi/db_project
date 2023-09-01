@@ -4,35 +4,40 @@ import GameHeading from "../components/GameHeading";
 import GenreList from "../components/GenreList";
 import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
+import HomePageCarousel from "../components/HomePageCarousel";
 
 function App() {
   return (
-    <Grid
-      templateAreas={{
-        base: `"main"`,
-        lg: `"aside main"`,
-      }}
-      templateColumns={{
-        base: "1fr",
-        lg: "200px 1fr",
-      }}
-    >
-      <Show above="lg">
-        <GridItem area="aside" paddingX={5}>
-          <GenreList />
+    <>
+      <HomePageCarousel />
+
+      <Grid
+        templateAreas={{
+          base: `"main"`,
+          lg: `"aside main"`,
+        }}
+        templateColumns={{
+          base: "1fr",
+          lg: "200px 1fr",
+        }}
+      >
+        <Show above="lg">
+          <GridItem area="aside" paddingX={5}>
+            <GenreList />
+          </GridItem>
+        </Show>
+        <GridItem area="main">
+          <Box paddingX={9}>
+            <GameHeading />
+            <HStack spacing="5">
+              <PlatformSelector />
+              <SortSelector />
+            </HStack>
+          </Box>
+          <GameGrid />
         </GridItem>
-      </Show>
-      <GridItem area="main">
-        <Box paddingX={9}>
-          <GameHeading />
-          <HStack spacing="5">
-            <PlatformSelector />
-            <SortSelector />
-          </HStack>
-        </Box>
-        <GameGrid />
-      </GridItem>
-    </Grid>
+      </Grid>
+    </>
   );
 }
 

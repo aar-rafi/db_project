@@ -1,0 +1,89 @@
+// .heroSection {
+//   position: relative;
+//   width: 100%;
+//   height: 100vh;
+//   overflow: hidden;
+// }
+
+// .background {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-image: url("../src/assets/reg_bg_3.jpg");
+//   filter: blur(10px);
+// }
+
+// .imagesContainer {
+//   display: flex;
+//   position: relative;
+//   overflow: hidden;
+// }
+
+// .image {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  justify-content: center;
+  background-size: cover;
+  background-image: url("https://img2.wallspic.com/previews/2/2/1/0/1/110122/110122-pink-atmosphere-texture-blue-violet-x350.jpg");
+  filter: blur(10px);
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  outline: none; // Remove the focus outline
+}
+
+.image {
+  max-width: 40%;
+  height: 50%;
+  object-fit: cover;
+  //no repeat
+  background-repeat: no-repeat;
+  justify-content: center;
+}
+.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  outline: none;
+  transition: all 0.8s;
+  justify-content: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; // Adjust this value for your desired aspect ratio (e.g., 16:9 = 56.25%, 4:3 = 75%)
+  overflow: hidden;
+  justify-content: center;
+}

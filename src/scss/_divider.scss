@@ -17,18 +17,33 @@
       height: 1.3px;
       width: 100%;
       background-color: transparent;
-      box-shadow: 0 0 1px #4df5cbe4, 0 0 20px #4df5cbe4 ;
-      filter: blur(2px);
+      box-shadow: 0 0 50px #2ed3aae6, 0 0 10px #3bd2accb;
+      filter: blur(0.2px);
     }
 
     .foreground {
       position: absolute;
       inset: 0;
-      height: 0.8px;
+      height: 0.6px;
       width: 100%;
       background-color: #0ceeb6;
-      box-shadow: 0 0 1px #4df5cbe4, 0 0 20px #4df5cbe4 ;
-
+      box-shadow: 0 0 50px rgba(58, 255, 206, 0.894), 0 0 10px #18daa0dc;
     }
+    .beam {
+      position: absolute;
+      inset: -1.2px -1.2px -1.2px -1.2px; // Extend the beam outside the box
+      background-color: #0ceeb6;
+      opacity: 0.5; // Adjust the opacity to control the intensity of the beam
+      animation: beamAnimation 1s infinite alternate; // Add animation for beam effect
+    }
+  }
+}
+
+@keyframes beamAnimation {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0.2;
   }
 }

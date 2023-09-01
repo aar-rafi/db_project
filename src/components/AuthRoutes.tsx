@@ -57,7 +57,7 @@ const AuthRoutes: React.FunctionComponent<AuthRoutesProps> = (props) => {
     if (!unsubscribe) {
       unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log("user logged in");
+          console.log(user.displayName);
           navigate("/demo");
         } else {
           console.log("user not logged in");

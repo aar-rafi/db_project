@@ -6,10 +6,13 @@ import { dividerChildrenVariants, dividerVariants } from "../lib/animation";
 
 // Import the SASS styles
 import "../scss/_divider.scss";
+import { useLocation } from "react-router-dom";
 
 export default function Divider() {
+  const location = useLocation();
   return (
     <motion.div
+      key={location.pathname}
       initial="initial"
       animate="animate"
       variants={dividerVariants}
@@ -22,6 +25,7 @@ export default function Divider() {
       >
         <div className="background" />
         <div className="foreground" />
+        <div className="beam" />
       </Box>
       <Box
         as={motion.div}
@@ -30,6 +34,7 @@ export default function Divider() {
       >
         <div className="background" />
         <div className="foreground" />
+        <div className="beam" />
       </Box>
       <Box
         as={motion.div}
@@ -38,6 +43,7 @@ export default function Divider() {
       >
         <div className="background" />
         <div className="foreground" />
+        <div className="beam" />
       </Box>
     </motion.div>
   );
