@@ -31,7 +31,7 @@ const Login = () => {
     try {
       const userCre = await login(email, password);
       //await signup(email, password);
-      navigate("/demo");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

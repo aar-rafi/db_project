@@ -31,17 +31,17 @@
     }
     .beam {
       position: absolute;
-      inset: -1.2px -1.2px -1.2px -1.2px; // Extend the beam outside the box
+      inset: 2px 2px 2px 2px; // Extend the beam ;outside the box
       background-color: #0ceeb6;
-      opacity: 0.5; // Adjust the opacity to control the intensity of the beam
-      animation: beamAnimation 1s infinite alternate; // Add animation for beam effect
+      opacity: 0.9; // Adjust the opacity to control the intensity of the beam
+      animation: beamAnimation 5s infinite alternate; // Add animation for beam effect
     }
   }
 }
 
 @keyframes beamAnimation {
   from {
-    opacity: 0.5;
+    opacity: 0.9;
   }
   to {
     opacity: 0.2;

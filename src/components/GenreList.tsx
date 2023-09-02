@@ -11,9 +11,14 @@ import useGenres from "../hooks/useGenres";
 import { Genre } from "../entities/Genre";
 import getCroppedImageUrl from "../services/image-url";
 import useGameQueryStore from "../store";
+import { useState } from "react";
 
 const GenreList = () => {
+  const [show, setShow] = useState(false);
+
   const { data, isLoading, error } = useGenres();
+
+  const datatoShow = show ? data : data?.slice(0, 5);
   const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
   const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
   //console.log(data[0]);
@@ -26,7 +31,7 @@ const GenreList = () => {
         Genres
       </Heading>
       <List>
-        {data.map((genre) => (
+        {datatoShow.map((genre) => (
           <ListItem key={genre.id} paddingY="4px">
             <HStack>
               <Image
@@ -49,6 +54,15 @@ const GenreList = () => {
           </ListItem>
         ))}
       </List>
+
+      <Button
+        colorScheme="green"
+        variant="ghost"
+        width="auto"
+        onClick={() => setShow(!show)}
+      >
+        {!show ? "Show More" : "Show Less"}
+      </Button>
     </>
   );
 };

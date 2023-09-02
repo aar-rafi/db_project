@@ -109,23 +109,23 @@ const HomePageCarousel = () => {
             <button onClick={() => swipeToImage(-1)}>PREV</button>
             <button onClick={() => swipeToImage(1)}>NEXT</button>
           </div> */}
-      </div>
 
-      <div className="thumbnails">
-        {IMAGES.map((image) => (
-          <div
-            key={image.id}
-            onClick={() => skipToImage(image.id)}
-            className="thumbnail-container"
-          >
-            <img src={image.imageSrc} alt="Musician" />
+        <div className="thumbnails">
+          {IMAGES.map((image) => (
             <div
-              className={`active-indicator ${
-                image.id === activeImageIndex ? "active" : null
-              }`}
-            />
-          </div>
-        ))}
+              key={image.id}
+              onClick={() => skipToImage(image.id)}
+              className="thumbnail-container"
+            >
+              <img src={image.imageSrc} alt="Musician" />
+              <div
+                className={`active-indicator ${
+                  image.id === activeImageIndex ? "active" : null
+                }`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <Divider />
     </main>

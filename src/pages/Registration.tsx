@@ -24,8 +24,14 @@ import { motion } from "framer-motion";
 import "../scss/_registerform.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebaseconfig";
+import { auth, storage } from "../firebase/firebaseconfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  StorageReference,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 
 interface Form1Props {
   email: string;
@@ -238,11 +244,23 @@ const Form1 = ({
 //   );
 // };
 
-const Form3 = () => {
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [previewURL, setPreviewURL] = useState<string | null>(null);
+interface Form3Props {
+  uploadedFile: File | null;
+  previewURL: string | null;
+  setUploadedFile: React.Dispatch<React.SetStateAction<File | null>>;
+  setPreviewURL: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
-  const [user] = useAuthState(auth);
+const Form3 = ({
+  previewURL,
+  uploadedFile,
+  setPreviewURL,
+  setUploadedFile,
+}: Form3Props) => {
+  // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  // const [previewURL, setPreviewURL] = useState<string | null>(null);
+
+  // const [user] = useAuthState(auth);
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -381,29 +399,51 @@ export default function Multistep() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [previewURL, setPreviewURL] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          updateProfile(user, {
-            displayName: username,
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      const profilePic = uploadedFile;
+      const storageRef = ref(storage, `users_pic/${user.uid}/profile_pic.jpg`);
+      if (profilePic) {
+        await uploadBytes(storageRef, profilePic)
+          .then((snapshot) => {
+            console.log("Uploaded a blob or file!");
           })
-            .then(() => {
-              console.log(user.displayName);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .catch((error) => {
+            console.log(error + "uploading file");
+          });
+      }
+
+      const profilePicUrl = await getDownloadURL(storageRef);
+      console.log(profilePicUrl);
+
+      await updateProfile(user, {
+        displayName: username,
+        photoURL: profilePicUrl,
+      })
+        .then(() => {
+          console.log(user);
         })
         .catch((error) => {
-          console.error("Error signing up:", error);
+          console.log(error);
         });
+      // })
+      // .catch((error) => {
+      //   console.error("Error signing up:", error);
+      // });
       // const user = userCredential.user;
       // console.log(user);
       toast({
@@ -458,7 +498,12 @@ export default function Multistep() {
             setUsername={setUsername}
           />
         ) : (
-          <Form3 />
+          <Form3
+            uploadedFile={uploadedFile}
+            previewURL={previewURL}
+            setUploadedFile={setUploadedFile}
+            setPreviewURL={setPreviewURL}
+          />
         )}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
