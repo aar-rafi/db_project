@@ -412,8 +412,7 @@ export default function Multistep() {
         email,
         password
       );
-      // .then((userCredential) => {
-      // Signed in
+
       const user = userCredential.user;
       const profilePic = uploadedFile;
       const storageRef = ref(storage, `users_pic/${user.uid}/profile_pic.jpg`);

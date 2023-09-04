@@ -1,11 +1,10 @@
 import { Button, HStack, Image, useColorMode } from "@chakra-ui/react";
-import logo_dark from "../assets/site-icon.webp";
+import { useNavigate } from "react-router-dom";
 import logo_light from "../assets/2B_Games_logo.webp";
+import logo_dark from "../assets/site-icon.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
-import { useNavigate } from "react-router-dom";
-import { setTimeout } from "timers/promises";
-import { link } from "fs";
+import UserAvatar from "./UserAvatar";
 
 const NavBar = () => {
   const { colorMode } = useColorMode();
@@ -22,7 +21,7 @@ const NavBar = () => {
       />
 
       <SearchInput />
-      <Button
+      {/* <Button
         variant="ghost"
         colorScheme="green"
         onClick={() => navigate("/login")}
@@ -35,8 +34,9 @@ const NavBar = () => {
         onClick={() => navigate("/registration")}
       >
         Sign UP{" "}
-      </Button>
+      </Button> */}
       <ColorModeSwitch />
+      <UserAvatar />
     </HStack>
   );
 };
