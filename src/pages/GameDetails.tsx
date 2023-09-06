@@ -1,13 +1,25 @@
-import { GridItem, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  GridItem,
+  Heading,
+  SimpleGrid,
+  Spinner,
+  useToast,
+} from "@chakra-ui/react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
 import ExpandableText from "../components/ExpandableText";
 import GameAttributes from "../components/GameAttributes";
 import GameScreenshots from "../components/GameScreenshots";
 import GameTrailers from "../components/GameTrailers";
+import WishlistButton from "../components/WishlistButton";
+import { auth } from "../firebase/firebaseconfig";
 import useGame from "../hooks/useGame";
 import styles from "./Details.module.css";
 
 const GameDetails = () => {
+  const toast = useToast();
+  const [user] = useAuthState(auth);
   const { slug } = useParams();
   const { data: game, isLoading, error } = useGame(slug!);
 
@@ -28,6 +40,28 @@ const GameDetails = () => {
           </Heading>
         </div>
       </div>
+
+      <SimpleGrid columns={1} spacing="1" margin={6}>
+        <GridItem justifyContent="center">
+          {user ? (
+            <WishlistButton gameId={game.id} userId={user.uid} />
+          ) : (
+            <Button
+              onClick={() =>
+                toast({
+                  title: "Please login to add to wishlist",
+                  status: "error",
+                  duration: 3000,
+                  isClosable: true,
+                })
+              }
+              variant="ghost"
+            >
+              login Add to Wishlist
+            </Button>
+          )}
+        </GridItem>
+      </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1} margin={10}>
         <GridItem gridArea={"auto"}>

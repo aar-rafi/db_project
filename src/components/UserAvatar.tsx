@@ -6,12 +6,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth"; // Replace with the correct import path
-import { auth } from "../firebase/firebaseconfig";
+import { useNavigate } from "react-router-dom";
 import apic from "../assets/avatar-1577909_640.png";
+import { auth } from "../firebase/firebaseconfig";
 
 const UserAvatar = () => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
@@ -19,7 +18,6 @@ const UserAvatar = () => {
   const [user, loading, error] = useAuthState(auth);
   const [signOut, serror] = useSignOut(auth);
   let userpic = apic;
-  // "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9";
 
   return (
     <>
@@ -44,10 +42,17 @@ const UserAvatar = () => {
           <Avatar size={"md"} src={user ? user.photoURL || userpic : userpic} />
         </MenuButton>
         <MenuList filter="auto">
+          <MenuItem justifyContent={"center"}>
+            <Avatar
+              size={"xl"}
+              src={user ? user.photoURL || userpic : userpic}
+            />
+          </MenuItem>
           <MenuItem
             onClick={() => navigate("/login")}
             color={"green"}
             fontWeight={"bold"}
+            justifyContent={"center"}
           >
             Log In
           </MenuItem>
@@ -55,6 +60,7 @@ const UserAvatar = () => {
             onClick={() => navigate("/registration")}
             color={"green"}
             fontWeight={"bold"}
+            justifyContent={"center"}
             blur="2px"
           >
             Sign UP
@@ -67,8 +73,9 @@ const UserAvatar = () => {
                 alert("You are sign out");
               }
             }}
-            color={"green"}
+            color={"tomato"}
             fontWeight={"bold"}
+            justifyContent={"center"}
           >
             Log Out
           </MenuItem>

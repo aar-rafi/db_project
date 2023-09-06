@@ -21,6 +21,7 @@ const prisma = new PrismaClient({ log: ["query"] });
 export const getGenre = async (_req: Request, res: Response) => {
   try {
     const connection = await oracledb.getConnection(con);
+    oracledb.autoCommit = true;
     const query = `SELECT id as "id",name as "name",image_background as "image_background" FROM GENRE`;
     const result: any = await connection.execute(query);
     await connection.close();
@@ -41,6 +42,22 @@ export const getParentPlatform = async (_req: Request, res: Response) => {
     res.status(200).json(response);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get parentplatform" });
+  }
+};
+
+export const addToWishlist = async (req: Request, res: Response) => {
+  console.log(req.body);
+  try {
+    const { userID, gameID } = req.body;
+    const connection = await oracledb.getConnection(con);
+    const query = `INSERT INTO WISHLIST VALUES (:userid,:gameid)`;
+    const result: any = await connection.execute(query, [userID, gameID], {
+      autoCommit: true,
+    });
+    await connection.close();
+    res.status(200).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't add to wishlist" });
   }
 };
 

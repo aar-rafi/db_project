@@ -1,17 +1,25 @@
+import { Button, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
-import axios from "axios";
+import apiServer from "../services/api-server";
 
-const WishlistButton: React.FC<{ userId: string; gameId: string }> = ({
+const WishlistButton: React.FC<{ userId: string; gameId: number }> = ({
   userId,
   gameId,
 }) => {
   const [isAdded, setIsAdded] = useState(false);
+  const toast = useToast();
+  console.log(gameId, userId);
 
   const handleAddToWishlist = async () => {
     try {
-      // Send a POST request to your backend to add the game to the wishlist.
-      await axios.post("/api/addToWishlist", { userId, gameId });
+      await apiServer.post("/addToWishlist", { userId, gameId });
       setIsAdded(true);
+      toast({
+        title: "Added to Wishlist",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("Error adding to wishlist:", error);
     }
@@ -22,7 +30,9 @@ const WishlistButton: React.FC<{ userId: string; gameId: string }> = ({
       {isAdded ? (
         <p>Added to Wishlist</p>
       ) : (
-        <button onClick={handleAddToWishlist}>Add to Wishlist</button>
+        <Button onClick={handleAddToWishlist} variant="ghost">
+          Add to Wishlist
+        </Button>
       )}
     </div>
   );
