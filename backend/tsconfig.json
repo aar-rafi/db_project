@@ -3,7 +3,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "module": "CommonJS",

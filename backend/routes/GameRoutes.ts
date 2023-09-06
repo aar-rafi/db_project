@@ -3,6 +3,7 @@ import {
   addToWishlist,
   getGenre,
   getParentPlatform,
+  registerUser,
 } from "../controller/GameController";
 import oratest from "../oracletest";
 
@@ -13,5 +14,6 @@ router.get("/genres", getGenre);
 router.get("/platforms/lists/parents", getParentPlatform);
 router.get("/oracletest", oratest);
 router.post("/addToWishlist", addToWishlist);
+router.post("/registerUser", registerUser);
 
 export default router;

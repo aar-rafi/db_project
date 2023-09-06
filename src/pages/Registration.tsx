@@ -32,6 +32,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
+import apiServer from "../services/api-server";
 
 interface Form1Props {
   email: string;
@@ -247,15 +248,23 @@ const Form1 = ({
 interface Form3Props {
   uploadedFile: File | null;
   previewURL: string | null;
+  bio: string | null;
+  socialHandles: string | null;
   setUploadedFile: React.Dispatch<React.SetStateAction<File | null>>;
   setPreviewURL: React.Dispatch<React.SetStateAction<string | null>>;
+  setBio: React.Dispatch<React.SetStateAction<string>>;
+  setSocialHandles: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Form3 = ({
   previewURL,
   uploadedFile,
+  bio,
+  socialHandles,
   setPreviewURL,
   setUploadedFile,
+  setBio,
+  setSocialHandles,
 }: Form3Props) => {
   // const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   // const [previewURL, setPreviewURL] = useState<string | null>(null);
@@ -274,9 +283,6 @@ const Form3 = ({
     }
   };
 
-  // const uploadBoxBorderColor = uploadedFile ? "#38A169" : "#CBD5E0";
-  // const uploadBoxBackgroundColor = uploadedFile ? "#A7F8C1" : "transparent";
-
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal">
@@ -292,7 +298,7 @@ const Form3 = ({
               color: "gray.50",
             }}
           >
-            Website
+            Social Media Handles
           </FormLabel>
           <InputGroup size="sm">
             <InputLeftAddon
@@ -310,10 +316,11 @@ const Form3 = ({
               placeholder="www.example.com"
               focusBorderColor="brand.400"
               rounded="md"
+              onChange={(e) => setSocialHandles(e.target.value)}
             />
           </InputGroup>
         </FormControl>
-        <FormControl id="email" mt={1}>
+        <FormControl id="bio" mt={1}>
           <FormLabel
             fontSize="sm"
             fontWeight="md"
@@ -325,17 +332,25 @@ const Form3 = ({
             About
           </FormLabel>
           <Textarea
-            placeholder="you@example.com"
+            placeholder="Enjoying life!..."
             rows={3}
             shadow="sm"
             focusBorderColor="brand.400"
             fontSize={{
               sm: "sm",
             }}
+            onChange={(e) => setBio(e.target.value)}
           />
           <FormHelperText>
             Brief description for your profile. URLs are hyperlinked.
           </FormHelperText>
+          {/* <Input
+            type="tel"
+            placeholder="Enjoying life!..."
+            focusBorderColor="brand.400"
+            rounded="md"
+            onChange={(e) => setBio(e.target.value)}
+          /> */}
         </FormControl>
 
         <FormControl id="file" mt={1}>
@@ -391,6 +406,15 @@ const Form3 = ({
   );
 };
 
+const userData = {
+  personid: "12345",
+  name: "JohnDoe",
+  email: "johndoe@example.com",
+  password: "your_password",
+  bio: "Some bio text",
+  socialmedialink: "https://example.com/johndoe",
+};
+
 export default function Multistep() {
   const toast = useToast();
   const [step, setStep] = useState(1);
@@ -399,6 +423,8 @@ export default function Multistep() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
+  const [socialHandles, setSocialHandles] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -439,12 +465,23 @@ export default function Multistep() {
         .catch((error) => {
           console.log(error);
         });
-      // })
-      // .catch((error) => {
-      //   console.error("Error signing up:", error);
-      // });
-      // const user = userCredential.user;
-      // console.log(user);
+
+      userData.personid = user.uid;
+      userData.name = username;
+      userData.email = email;
+      userData.password = password;
+      userData.bio = bio;
+      userData.socialmedialink = socialHandles;
+
+      apiServer
+        .post("/registerUser", userData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       toast({
         title: "Account created.",
         description: "We've created your account for you.",
@@ -500,8 +537,12 @@ export default function Multistep() {
           <Form3
             uploadedFile={uploadedFile}
             previewURL={previewURL}
+            bio={bio}
+            socialHandles={socialHandles}
             setUploadedFile={setUploadedFile}
             setPreviewURL={setPreviewURL}
+            setBio={setBio}
+            setSocialHandles={setSocialHandles}
           />
         )}
         <ButtonGroup mt="5%" w="100%">
