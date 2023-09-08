@@ -57,7 +57,7 @@ const HomePageCarousel = () => {
   };
 
   const skipToImage = (imageId: number) => {
-    let changeDirection;
+    let changeDirection: number;
     if (imageId > activeImageIndex) {
       changeDirection = 1;
     } else if (imageId < activeImageIndex) {

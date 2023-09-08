@@ -13,5 +13,9 @@ router.get("/platforms/lists/parents", GameController_1.getParentPlatform);
 router.get("/oracletest", oracletest_1.default);
 router.post("/addToWishlist", GameController_1.addToWishlist);
 router.post("/registerUser", GameController_1.registerUser);
+router.get("/getWishlist", GameController_1.getWishlist);
+router.delete("/removeFromWishlist/:userId/:gameId", GameController_1.removeFromWishlist);
+router.patch("/updateRating", GameController_1.updateRating);
+router.get("/getRatingLevel", GameController_1.getRatingLevel);
 exports.default = router;
 //# sourceMappingURL=GameRoutes.js.map

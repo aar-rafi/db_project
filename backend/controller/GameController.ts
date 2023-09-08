@@ -3,8 +3,10 @@ import { Request, Response } from "express";
 import { con } from "../oracletest";
 import oracledb from "oracledb";
 import * as bcrypt from "bcrypt";
+import { forWishlist } from "../util/format";
 
 const prisma = new PrismaClient({ log: ["query"] });
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 // export const getGames = async (_req: Request, res: Response) => {
 //   try {
@@ -86,7 +88,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     user.password = await bcrypt.hash(user.password, 10);
 
-    // Create an array to hold the columns to insert and an array to hold the values.
+    // Create an array to hold the columns to insert and an array to hold the values
     const columnsToInsert: string[] = [];
     const valuesToInsert: any[] = [];
 
@@ -121,6 +123,110 @@ export const registerUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error("Error registering user:", error);
     res.status(500).json({ msg: error.message || "Registration failed" });
+  }
+};
+
+export const getWishlist = async (req: Request, res: Response) => {
+  try {
+    const personid = req.query.personid;
+    console.log(personid);
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT DISTINCT
+          G.ID AS id,
+          G.slug AS slug,
+          G.NAME AS name,
+          G.background_image,
+          g.METACRITIC,
+          PP.NAME AS platform_name,
+          pp.ID AS platform_id,
+          pp.SLUG AS platform_slug
+        FROM GAME G
+        INNER JOIN GAME_PARENTPLATFORM GP ON G.ID = GP.GAMEID
+        INNER JOIN PARENT_PLATFORM PP ON GP.PARENTPLATFORM_ID = PP.ID
+        WHERE g.ID IN (SELECT w.GAMEID  FROM WISHLIST w WHERE w.PERSONID = :personid)`;
+    const result: any = await connection.execute(query, [personid]);
+    await connection.close();
+    const re = forWishlist(result.rows);
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get wishlist" });
+  }
+};
+
+export const removeFromWishlist = async (req: Request, res: Response) => {
+  const { userId, gameId } = req.params;
+
+  const connection = await oracledb.getConnection(con);
+  const query = `DELETE FROM wishlist
+  WHERE personid = :userId
+  AND gameid = :gameId`;
+
+  const result: any = await connection.execute(query, [userId, gameId], {
+    autoCommit: true,
+  });
+  await connection.close();
+  console.log(result.rows);
+  res.status(200).json({ msg: "game deleted from wishlist successfully" });
+};
+
+export const updateRating = async (req: Request, res: Response) => {
+  try {
+    const { incrementValue, gameId, ratingId } = req.body;
+    console.log(incrementValue, gameId, ratingId);
+    const connection = await oracledb.getConnection(con);
+
+    const query = `
+    BEGIN
+      UPDATE GAME_RATING SET RATING_COUNT= RATING_COUNT +:incrementValue
+       WHERE GAMEID=:gameid AND RATINGID=:ratingid;
+        p_recalculate_percent(:gameid );
+    END;`;
+
+    const result: any = await connection.execute(query, {
+      incrementValue: incrementValue,
+      gameid: gameId,
+      ratingid: ratingId,
+    });
+    await connection.commit();
+
+    await connection.close();
+    console.log(result);
+    res.status(204).json({ msg: "success" });
+  } catch (error: any) {
+    console.log(error);
+    const connection = await oracledb.getConnection(con);
+    await connection.rollback();
+    res.status(500).json({ msg: error.message || "can't update rating" });
+  } finally {
+    const connection = await oracledb.getConnection(con);
+    await connection.close();
+  }
+};
+
+export const getRatingLevel = async (req: Request, res: Response) => {
+  try {
+    const { gameid } = req.query;
+    console.log(gameid);
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    RATINGID as "ratingid",
+    TITLE AS "title",
+    RATING_COUNT AS "rating_count",
+    PERCENT AS "percent"
+  FROM
+    GAME_RATING
+  INNER JOIN RATING_LEVEL ON
+    GAME_RATING.RATINGID = RATING_LEVEL.ID
+  WHERE
+    GAMEID = :gameid`;
+    const result: any = await connection.execute(query, [gameid]);
+    await connection.close();
+    const re = result.rows;
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get rating level" });
   }
 };
 

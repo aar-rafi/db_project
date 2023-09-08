@@ -14,4 +14,12 @@ export interface Game {
   short_screenshots: { id: number; image: string }[];
   genres: Genre[];
   publishers: Publisher[];
+  ratings: Ratings[];
+}
+
+interface Ratings {
+  id: number;
+  title: string;
+  percent: number;
+  count: number;
 }

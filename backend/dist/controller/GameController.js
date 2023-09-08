@@ -26,12 +26,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = exports.addToWishlist = exports.getParentPlatform = exports.getGenre = void 0;
+exports.getRatingLevel = exports.updateRating = exports.removeFromWishlist = exports.getWishlist = exports.registerUser = exports.addToWishlist = exports.getParentPlatform = exports.getGenre = void 0;
 const client_1 = require("@prisma/client");
 const oracletest_1 = require("../oracletest");
 const oracledb_1 = __importDefault(require("oracledb"));
 const bcrypt = __importStar(require("bcrypt"));
+const format_1 = require("../util/format");
 const prisma = new client_1.PrismaClient({ log: ["query"] });
+oracledb_1.default.outFormat = oracledb_1.default.OUT_FORMAT_OBJECT;
 // export const getGames = async (_req: Request, res: Response) => {
 //   try {
 //     const response = await prisma.game.findMany();
@@ -101,7 +103,7 @@ const registerUser = async (req, res) => {
             socialmedia_link: req.body.socialmedialink || "",
         };
         user.password = await bcrypt.hash(user.password, 10);
-        // Create an array to hold the columns to insert and an array to hold the values.
+        // Create an array to hold the columns to insert and an array to hold the values
         const columnsToInsert = [];
         const valuesToInsert = [];
         // Loop through the user object and add columns and values if they are provided.
@@ -134,6 +136,109 @@ const registerUser = async (req, res) => {
     }
 };
 exports.registerUser = registerUser;
+const getWishlist = async (req, res) => {
+    try {
+        const personid = req.query.personid;
+        console.log(personid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `SELECT DISTINCT
+          G.ID AS id,
+          G.slug AS slug,
+          G.NAME AS name,
+          G.background_image,
+          g.METACRITIC,
+          PP.NAME AS platform_name,
+          pp.ID AS platform_id,
+          pp.SLUG AS platform_slug
+        FROM GAME G
+        INNER JOIN GAME_PARENTPLATFORM GP ON G.ID = GP.GAMEID
+        INNER JOIN PARENT_PLATFORM PP ON GP.PARENTPLATFORM_ID = PP.ID
+        WHERE g.ID IN (SELECT w.GAMEID  FROM WISHLIST w WHERE w.PERSONID = :personid)`;
+        const result = await connection.execute(query, [personid]);
+        await connection.close();
+        const re = (0, format_1.forWishlist)(result.rows);
+        console.log(re);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get wishlist" });
+    }
+};
+exports.getWishlist = getWishlist;
+const removeFromWishlist = async (req, res) => {
+    const { userId, gameId } = req.params;
+    const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+    const query = `DELETE FROM wishlist
+  WHERE personid = :userId
+  AND gameid = :gameId`;
+    const result = await connection.execute(query, [userId, gameId], {
+        autoCommit: true,
+    });
+    await connection.close();
+    console.log(result.rows);
+    res.status(200).json({ msg: "game deleted from wishlist successfully" });
+};
+exports.removeFromWishlist = removeFromWishlist;
+const updateRating = async (req, res) => {
+    try {
+        const { incrementValue, gameId, ratingId } = req.body;
+        console.log(incrementValue, gameId, ratingId);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    BEGIN
+      UPDATE GAME_RATING SET RATING_COUNT= RATING_COUNT +:incrementValue
+       WHERE GAMEID=:gameid AND RATINGID=:ratingid;
+        p_recalculate_percent(:gameid );
+    END;`;
+        const result = await connection.execute(query, {
+            incrementValue: incrementValue,
+            gameid: gameId,
+            ratingid: ratingId,
+        });
+        await connection.commit();
+        await connection.close();
+        console.log(result);
+        res.status(204).json({ msg: "success" });
+    }
+    catch (error) {
+        console.log(error);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        await connection.rollback();
+        res.status(500).json({ msg: error.message || "can't update rating" });
+    }
+    finally {
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        await connection.close();
+    }
+};
+exports.updateRating = updateRating;
+const getRatingLevel = async (req, res) => {
+    try {
+        const { gameid } = req.query;
+        console.log(gameid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `SELECT
+    RATINGID as "ratingid",
+    TITLE AS "title",
+    RATING_COUNT AS "rating_count",
+    PERCENT AS "percent"
+  FROM
+    GAME_RATING
+  INNER JOIN RATING_LEVEL ON
+    GAME_RATING.RATINGID = RATING_LEVEL.ID
+  WHERE
+    GAMEID = :gameid`;
+        const result = await connection.execute(query, [gameid]);
+        await connection.close();
+        const re = result.rows;
+        console.log(re);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get rating level" });
+    }
+};
+exports.getRatingLevel = getRatingLevel;
 //export const getGames =
 // async function getGame() {
 //   const response = await prisma.game.findMany();

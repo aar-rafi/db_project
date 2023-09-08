@@ -18,7 +18,7 @@ const GenreList = () => {
 
   const { data, isLoading, error } = useGenres();
 
-  const datatoShow = show ? data : data?.slice(0, 5);
+  const datatoShow = data ? (show ? data : data.slice(0, 5)) : [];
   const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
   const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
   //console.log(data[0]);

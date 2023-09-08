@@ -33,6 +33,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import apiServer from "../services/api-server";
+import Divider from "../components/Divider";
 
 interface Form1Props {
   email: string;
@@ -508,12 +509,14 @@ export default function Multistep() {
   return (
     // <div className="background-overlay-container">
     <>
+      <Divider />
+      <Flex p={6}></Flex>
       <Box
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
         maxWidth={700}
-        p={6}
+        p="6"
         m="10px auto"
         mx="auto 10px"
         as="form"

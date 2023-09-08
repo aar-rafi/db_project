@@ -1,5 +1,6 @@
 import {
   Button,
+  Flex,
   GridItem,
   Heading,
   SimpleGrid,
@@ -8,10 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
+import Divider from "../components/Divider";
 import ExpandableText from "../components/ExpandableText";
 import GameAttributes from "../components/GameAttributes";
 import GameScreenshots from "../components/GameScreenshots";
 import GameTrailers from "../components/GameTrailers";
+import RatingBar from "../components/RatingBar";
 import WishlistButton from "../components/WishlistButton";
 import { auth } from "../firebase/firebaseconfig";
 import useGame from "../hooks/useGame";
@@ -40,30 +43,36 @@ const GameDetails = () => {
           </Heading>
         </div>
       </div>
+      <Divider />
 
-      <SimpleGrid columns={1} spacing="1" margin={6}>
-        <GridItem justifyContent="center">
-          {user ? (
-            <WishlistButton gameId={game.id} userId={user.uid} />
-          ) : (
-            <Button
-              onClick={() =>
-                toast({
-                  title: "Please login to add to wishlist",
-                  status: "error",
-                  duration: 3000,
-                  isClosable: true,
-                })
-              }
-              variant="ghost"
-            >
-              login Add to Wishlist
-            </Button>
-          )}
-        </GridItem>
-      </SimpleGrid>
+      {/* <SimpleGrid columns={1} spacing="1" margin={6}>
+        <GridItem justifyItems="center"> */}
+      <Flex justify={"center"} p="6">
+        {user ? (
+          <WishlistButton gameId={game.id} userId={user.uid} />
+        ) : (
+          <Button
+            onClick={() =>
+              toast({
+                title: "Please login to add to wishlist",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+              })
+            }
+            variant="ghost"
+          >
+            login Add to Wishlist
+          </Button>
+        )}
+      </Flex>
+      <Flex justify={"center"}>
+        <RatingBar game={game} />
+      </Flex>
+      {/* </GridItem>
+      </SimpleGrid> */}
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={1} margin={10}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} margin={10}>
         <GridItem gridArea={"auto"}>
           <GameScreenshots gameId={game.id} />
         </GridItem>

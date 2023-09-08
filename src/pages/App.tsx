@@ -5,6 +5,7 @@ import GenreList from "../components/GenreList";
 import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import HomePageCarousel from "../components/HomePageCarousel";
+import Sidebar from "../components/Sidebar";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
             <GenreList />
+            <Sidebar />
           </GridItem>
         </Show>
         <GridItem area="main">

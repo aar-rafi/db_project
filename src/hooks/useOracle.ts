@@ -21,12 +21,12 @@ const useOracle = <T>(
 
       setLoading(true);
       apiServer
-        .get<FetchResponse<T>>(endpoint, {
+        .get<T>(endpoint, {
           signal: controller.signal,
           ...requestConfig,
         })
         .then((res) => {
-          setData(res.data.re), setLoading(false);
+          setData(res.data as T[]), setLoading(false);
           console.log(res.data);
         })
         .catch((err) => {

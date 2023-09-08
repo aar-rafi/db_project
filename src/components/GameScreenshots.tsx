@@ -13,7 +13,7 @@ const GameScreenshots = ({ gameId }: Props) => {
   if (isLoading) return <div>Loading...</div>;
   if (error || !screenshots) throw error;
   return (
-    <Flex height={"fit-content"} width={"container.md"}>
+    <Flex height={"fit-content"}>
       <Carousel duration={5}>
         {screenshots.results.map((s) => (
           <Image

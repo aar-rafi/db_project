@@ -8,6 +8,7 @@ import Registration from "./pages/Registration";
 import AuthRoutes from "./components/AuthRoutes";
 import Login from "./pages/Login";
 import HeroSection from "./pages/HeroSection";
+import Wishlist from "./pages/Wishlist";
 
 const routes = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const routes = createBrowserRouter([
       { path: "games/:slug", element: <GameDetails /> },
       { path: "registration", element: <Registration /> },
       { path: "login", element: <Login /> },
-      { path: "hero", element: <HeroSection /> },
+      { path: "wishlist", element: <Wishlist /> },
     ],
   },
 ]);

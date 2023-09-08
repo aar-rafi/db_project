@@ -32,7 +32,7 @@ const useGenres = () =>
     queryKey: ["genres"],
     queryFn: () => apiServer.get<Genre[]>("/genres").then((res) => res.data),
     staleTime: 1000 * 60 * 60 * 24,
-    // initialData: genres,
+    initialData: genres,
   });
 
 export default useGenres;

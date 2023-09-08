@@ -10,7 +10,7 @@ export const con = {
   connectString: "localhost:1521/XEPDB1",
 };
 
-interface Game {
+export interface Game {
   id: number;
   name: string;
   background_image: string;
