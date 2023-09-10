@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Avatar,
   Button,
   Menu,
@@ -70,8 +72,12 @@ const UserAvatar = () => {
             onClick={async () => {
               const success = await signOut();
               if (success) {
-                alert("You are sign out");
+                <Alert status="success" variant="top-accent">
+                  <AlertIcon />
+                  You Have Signed Out
+                </Alert>;
               }
+              navigate("/");
             }}
             color={"tomato"}
             fontWeight={"bold"}

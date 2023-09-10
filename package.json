@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "run-script": "node src/hooks/usetest.ts",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -21,11 +22,13 @@
     "axios": "^1.4.0",
     "firebase": "^10.3.0",
     "framer-motion": "^10.12.18",
+    "multiselect-react-dropdown": "^2.0.25",
     "noisejs": "^2.1.0",
     "react": "^18.2.0",
     "react-blur": "^1.1.1",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.46.1",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.10.0",
     "react-slick": "^0.29.0",

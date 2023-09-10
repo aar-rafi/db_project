@@ -33,7 +33,7 @@ const Login = () => {
       const userCre = await login(email, password);
       //await signup(email, password);
       console.log(userCre);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.log(error);
     }

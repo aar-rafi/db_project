@@ -1,40 +1,54 @@
-import { Button, HStack, Image, useColorMode } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo_light from "../assets/2B_Games_logo.webp";
-import logo_dark from "../assets/site-icon.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
+import SiteIcon from "./SiteIcon";
 import UserAvatar from "./UserAvatar";
 
 const NavBar = () => {
-  const { colorMode } = useColorMode();
+  const [showNavbar, setShowNavbar] = useState<boolean>(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100 && !showNavbar) {
+        setShowNavbar(true);
+      } else if (window.scrollY === 0 && showNavbar) {
+        setShowNavbar(false);
+      }
+    };
+
+    // Attach the scroll event listener when the component mounts
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showNavbar]);
+
   return (
     <HStack padding="10px">
-      <Image
-        src={colorMode === "dark" ? logo_dark : logo_light}
-        boxSize="20"
-        borderRadius="full"
-        onClick={() => {
-          navigate("/");
-        }}
-      />
+      <SiteIcon boxs={"65"} />
 
       <SearchInput />
-      {/* <Button
+      <Button
+        color={"green.200"}
         variant="ghost"
-        colorScheme="green"
-        onClick={() => navigate("/login")}
+        _hover={{ color: "yellow" }}
+        onClick={() => navigate("/collections")}
       >
-        Log In
+        Collections
       </Button>
       <Button
+        color={"green.200"}
         variant="ghost"
-        colorScheme="green"
-        onClick={() => navigate("/registration")}
+        _hover={{ color: "yellow" }}
+        onClick={() => navigate("/wishlist")}
       >
-        Sign UP{" "}
-      </Button> */}
+        Wishlist
+      </Button>
       <ColorModeSwitch />
       <UserAvatar />
     </HStack>

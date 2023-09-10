@@ -17,5 +17,9 @@ router.get("/getWishlist", GameController_1.getWishlist);
 router.delete("/removeFromWishlist/:userId/:gameId", GameController_1.removeFromWishlist);
 router.patch("/updateRating", GameController_1.updateRating);
 router.get("/getRatingLevel", GameController_1.getRatingLevel);
+router.post("/addPublid", GameController_1.addPublid);
+router.post("/addReview", GameController_1.addReview);
+router.get("/getReviews", GameController_1.getReviews);
+router.get("/getUser", GameController_1.getUser);
 exports.default = router;
 //# sourceMappingURL=GameRoutes.js.map

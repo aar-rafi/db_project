@@ -4,7 +4,10 @@ import { Game } from "../entities/Game";
 import useRatingLevel, { RatingLevel } from "../hooks/useRatingLevel";
 import apiServer from "../services/api-server";
 
-const RatingBar: React.FC<{ game: Game }> = ({ game }) => {
+const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
+  game,
+  userid,
+}) => {
   const { data, isLoading, isError } = useRatingLevel(game.id);
   const [updatedData, setUpdatedData] = useState<RatingLevel[]>(data!);
   const [selectedRating, setSelectedRating] = useState<string | null>(null);
@@ -13,6 +16,8 @@ const RatingBar: React.FC<{ game: Game }> = ({ game }) => {
     incrementValue: 1,
     gameId: game.id,
     ratingId: 41,
+    uid: userid,
+    title: "exceptional",
   };
 
   const ho = useEffect(() => {
@@ -34,6 +39,7 @@ const RatingBar: React.FC<{ game: Game }> = ({ game }) => {
           incrementValue: -1,
           ratingId: updatedData?.find((rating) => rating.title === ratingTitle)
             ?.ratingid,
+          title: ratingTitle,
         });
         // ho;
       } else {
@@ -44,6 +50,7 @@ const RatingBar: React.FC<{ game: Game }> = ({ game }) => {
           incrementValue: 1,
           ratingId: updatedData?.find((rating) => rating.title === ratingTitle)
             ?.ratingid,
+          title: ratingTitle,
         });
         // ho;
       }

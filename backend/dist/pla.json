@@ -1,0 +1,415 @@
+[
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 354,
+        "name": "Electronic Arts",
+        "slug": "electronic-arts",
+        "games_count": 1310,
+        "image_background": "https://media.rawg.io/media/games/260/26023c855f1769a93411d6a7ea084632.jpeg"
+    },
+    {
+        "id": 10212,
+        "name": "Sony Computer Entertainment",
+        "slug": "sony-computer-entertainment",
+        "games_count": 464,
+        "image_background": "https://media.rawg.io/media/games/4b6/4b67558bf04c7211aabeff179271bdd8.jpg"
+    },
+    {
+        "id": 2150,
+        "name": "Capcom",
+        "slug": "capcom",
+        "games_count": 605,
+        "image_background": "https://media.rawg.io/media/games/a91/a917f41bb87e4b9e7a762ac87d97a9dc.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 7411,
+        "name": "CD PROJEKT RED",
+        "slug": "cd-projekt-red",
+        "games_count": 26,
+        "image_background": "https://media.rawg.io/media/screenshots/cf9/cf90097e47a02e91e099eb590c44ae4a.jpg"
+    },
+    {
+        "id": 350,
+        "name": "Warner Bros. Interactive",
+        "slug": "warner-bros-interactive",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/16b/16b1b7b36e2042d1128d5a3e852b3b2f.jpg"
+    },
+    {
+        "id": 243,
+        "name": "505 Games",
+        "slug": "505-games",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/ba9/ba9ad92b6d04825bd15a407c6059db94.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 15437,
+        "name": "Psyonix",
+        "slug": "psyonix",
+        "games_count": 6,
+        "image_background": "https://media.rawg.io/media/screenshots/6da/6dafe3f5e9725623b4591ab7952186df.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 308,
+        "name": "Square Enix",
+        "slug": "square-enix",
+        "games_count": 581,
+        "image_background": "https://media.rawg.io/media/games/410/41033a495ce8f7fd4b0934bdb975f12a.jpg"
+    },
+    {
+        "id": 308,
+        "name": "Square Enix",
+        "slug": "square-enix",
+        "games_count": 581,
+        "image_background": "https://media.rawg.io/media/games/410/41033a495ce8f7fd4b0934bdb975f12a.jpg"
+    },
+    {
+        "id": 4879,
+        "name": "1C-SoftClub",
+        "slug": "1c-softclub",
+        "games_count": 49,
+        "image_background": "https://media.rawg.io/media/games/5fa/5fae5fec3c943179e09da67a4427d68f.jpg"
+    },
+    {
+        "id": 2155,
+        "name": "Rockstar Games",
+        "slug": "rockstar-games",
+        "games_count": 79,
+        "image_background": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
+    },
+    {
+        "id": 339,
+        "name": "Bethesda Softworks",
+        "slug": "bethesda-softworks",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/157/1570121f5c4d240504f1eae5c3854733.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 311,
+        "name": "Deep Silver",
+        "slug": "deep-silver",
+        "games_count": 183,
+        "image_background": "https://media.rawg.io/media/games/6eb/6eb5ed3b286510c6dab3f15e3a975529.jpg"
+    },
+    {
+        "id": 20987,
+        "name": "Microsoft Studios",
+        "slug": "microsoft-studios",
+        "games_count": 495,
+        "image_background": "https://media.rawg.io/media/games/b45/b45575f34285f2c4479c9a5f719d972e.jpg"
+    },
+    {
+        "id": 11687,
+        "name": "Sony Interactive Entertainment",
+        "slug": "sony-interactive-entertainment",
+        "games_count": 294,
+        "image_background": "https://media.rawg.io/media/games/a35/a359074cde22a4b23c54db44a592dc41.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 354,
+        "name": "Electronic Arts",
+        "slug": "electronic-arts",
+        "games_count": 1310,
+        "image_background": "https://media.rawg.io/media/games/260/26023c855f1769a93411d6a7ea084632.jpeg"
+    },
+    {
+        "id": 221,
+        "name": "Telltale Games",
+        "slug": "telltale-games",
+        "games_count": 123,
+        "image_background": "https://media.rawg.io/media/screenshots/a08/a088fa3ad0e4e0eefd276b587c68e135.jpg"
+    },
+    {
+        "id": 5931,
+        "name": "Frictional Games",
+        "slug": "frictional-games",
+        "games_count": 10,
+        "image_background": "https://media.rawg.io/media/games/a45/a45abc50643f0fa355f5cb24cbb94744.jpg"
+    },
+    {
+        "id": 918,
+        "name": "Ubisoft Entertainment",
+        "slug": "ubisoft-entertainment",
+        "games_count": 1057,
+        "image_background": "https://media.rawg.io/media/games/5e4/5e4bff02098b2b6f824c68286d5da1a6.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 308,
+        "name": "Square Enix",
+        "slug": "square-enix",
+        "games_count": 581,
+        "image_background": "https://media.rawg.io/media/games/410/41033a495ce8f7fd4b0934bdb975f12a.jpg"
+    },
+    {
+        "id": 3440,
+        "name": "Team Cherry",
+        "slug": "team-cherry",
+        "games_count": 2,
+        "image_background": "https://media.rawg.io/media/games/27c/27cd8b7dead05a870f8a514a9a1915ad.jpg"
+    },
+    {
+        "id": 2119,
+        "name": "Red Barrels",
+        "slug": "red-barrels",
+        "games_count": 4,
+        "image_background": "https://media.rawg.io/media/screenshots/c5c/c5c5ac554749639eb0b1c67eafa419cd.jpg"
+    },
+    {
+        "id": 337,
+        "name": "Digital Extremes",
+        "slug": "digital-extremes",
+        "games_count": 6,
+        "image_background": "https://media.rawg.io/media/screenshots/50e/50ef6d315fa6f0a035a4ce421d226674.jpg"
+    },
+    {
+        "id": 4879,
+        "name": "1C-SoftClub",
+        "slug": "1c-softclub",
+        "games_count": 49,
+        "image_background": "https://media.rawg.io/media/games/5fa/5fae5fec3c943179e09da67a4427d68f.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 2150,
+        "name": "Capcom",
+        "slug": "capcom",
+        "games_count": 605,
+        "image_background": "https://media.rawg.io/media/games/a91/a917f41bb87e4b9e7a762ac87d97a9dc.jpg"
+    },
+    {
+        "id": 339,
+        "name": "Bethesda Softworks",
+        "slug": "bethesda-softworks",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/157/1570121f5c4d240504f1eae5c3854733.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 308,
+        "name": "Square Enix",
+        "slug": "square-enix",
+        "games_count": 581,
+        "image_background": "https://media.rawg.io/media/games/410/41033a495ce8f7fd4b0934bdb975f12a.jpg"
+    },
+    {
+        "id": 339,
+        "name": "Bethesda Softworks",
+        "slug": "bethesda-softworks",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/157/1570121f5c4d240504f1eae5c3854733.jpg"
+    },
+    {
+        "id": 19651,
+        "name": "Feral Interactive",
+        "slug": "feral-interactive",
+        "games_count": 109,
+        "image_background": "https://media.rawg.io/media/games/214/2140885d34e3a3398b45036e5d870971.jpg"
+    },
+    {
+        "id": 20987,
+        "name": "Microsoft Studios",
+        "slug": "microsoft-studios",
+        "games_count": 495,
+        "image_background": "https://media.rawg.io/media/games/b45/b45575f34285f2c4479c9a5f719d972e.jpg"
+    },
+    {
+        "id": 1307,
+        "name": "Devolver Digital",
+        "slug": "devolver-digital",
+        "games_count": 168,
+        "image_background": "https://media.rawg.io/media/games/0b2/0b240149610b8b20eac098b8071f575a.jpg"
+    },
+    {
+        "id": 10212,
+        "name": "Sony Computer Entertainment",
+        "slug": "sony-computer-entertainment",
+        "games_count": 464,
+        "image_background": "https://media.rawg.io/media/games/4b6/4b67558bf04c7211aabeff179271bdd8.jpg"
+    },
+    {
+        "id": 308,
+        "name": "Square Enix",
+        "slug": "square-enix",
+        "games_count": 581,
+        "image_background": "https://media.rawg.io/media/games/410/41033a495ce8f7fd4b0934bdb975f12a.jpg"
+    },
+    {
+        "id": 8352,
+        "name": "Bandai Namco Entertainment",
+        "slug": "bandai-namco-entertainment",
+        "games_count": 584,
+        "image_background": "https://media.rawg.io/media/games/643/6431f15213a854efd273943f2cf6a925.jpg"
+    },
+    {
+        "id": 358,
+        "name": "2K Games",
+        "slug": "2k-games",
+        "games_count": 206,
+        "image_background": "https://media.rawg.io/media/games/238/2383a172b4d50a7b44e07980eb7141ea.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 354,
+        "name": "Electronic Arts",
+        "slug": "electronic-arts",
+        "games_count": 1310,
+        "image_background": "https://media.rawg.io/media/games/260/26023c855f1769a93411d6a7ea084632.jpeg"
+    },
+    {
+        "id": 339,
+        "name": "Bethesda Softworks",
+        "slug": "bethesda-softworks",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/157/1570121f5c4d240504f1eae5c3854733.jpg"
+    },
+    {
+        "id": 2155,
+        "name": "Rockstar Games",
+        "slug": "rockstar-games",
+        "games_count": 79,
+        "image_background": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
+    },
+    {
+        "id": 10830,
+        "name": "Activision Blizzard",
+        "slug": "activision-blizzard",
+        "games_count": 696,
+        "image_background": "https://media.rawg.io/media/games/e9c/e9c042d14515eb3ff7cb4db9fe78e435.jpg"
+    },
+    {
+        "id": 3399,
+        "name": "Valve",
+        "slug": "valve",
+        "games_count": 46,
+        "image_background": "https://media.rawg.io/media/screenshots/9fd/9fd128fef547eb630182a1995b1edeb5.jpg"
+    },
+    {
+        "id": 10691,
+        "name": "Konami",
+        "slug": "konami",
+        "games_count": 761,
+        "image_background": "https://media.rawg.io/media/games/0f1/0f105a3d3ba6225269c4a08b43ecbb73.jpg"
+    },
+    {
+        "id": 6062,
+        "name": "THQ",
+        "slug": "thq",
+        "games_count": 500,
+        "image_background": "https://media.rawg.io/media/screenshots/202/202d74b99a0c0148ff0b3e024e6fd243.jpg"
+    },
+    {
+        "id": 8352,
+        "name": "Bandai Namco Entertainment",
+        "slug": "bandai-namco-entertainment",
+        "games_count": 584,
+        "image_background": "https://media.rawg.io/media/games/643/6431f15213a854efd273943f2cf6a925.jpg"
+    },
+    {
+        "id": 243,
+        "name": "505 Games",
+        "slug": "505-games",
+        "games_count": 169,
+        "image_background": "https://media.rawg.io/media/games/ba9/ba9ad92b6d04825bd15a407c6059db94.jpg"
+    },
+    {
+        "id": 7411,
+        "name": "CD PROJEKT RED",
+        "slug": "cd-projekt-red",
+        "games_count": 26,
+        "image_background": "https://media.rawg.io/media/screenshots/cf9/cf90097e47a02e91e099eb590c44ae4a.jpg"
+    }
+]

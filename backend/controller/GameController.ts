@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { con } from "../oracletest";
 import oracledb from "oracledb";
 import * as bcrypt from "bcrypt";
@@ -172,12 +172,13 @@ export const removeFromWishlist = async (req: Request, res: Response) => {
 
 export const updateRating = async (req: Request, res: Response) => {
   try {
-    const { incrementValue, gameId, ratingId } = req.body;
+    const { incrementValue, gameId, ratingId, uid, title } = req.body;
     console.log(incrementValue, gameId, ratingId);
     const connection = await oracledb.getConnection(con);
 
     const query = `
     BEGIN
+      UPDATE REVIEWS SET RATING_LEVEL=:title WHERE GAMEID=:gameid AND PERSONID=:uid;
       UPDATE GAME_RATING SET RATING_COUNT= RATING_COUNT +:incrementValue
        WHERE GAMEID=:gameid AND RATINGID=:ratingid;
         p_recalculate_percent(:gameid );
@@ -187,6 +188,8 @@ export const updateRating = async (req: Request, res: Response) => {
       incrementValue: incrementValue,
       gameid: gameId,
       ratingid: ratingId,
+      uid: uid,
+      title: title,
     });
     await connection.commit();
 
@@ -227,6 +230,105 @@ export const getRatingLevel = async (req: Request, res: Response) => {
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get rating level" });
+  }
+};
+
+export const addPublid = async (req: Request, res: Response) => {
+  try {
+    const { id, slug, name, image_background, gamec } = req.body;
+    console.log(id, slug, name, image_background, gamec);
+    const connection = await oracledb.getConnection(con);
+    // UPDATE GAME SET PUBLISHERID=:id WHERE ID=:gameid;
+    const query = `BEGIN
+      CALL GAME_SITE.PUBLISHER_INSERT(:id, :slug, :name, :imgae_background,:gamec);
+     END;`;
+    const result: any = await connection.execute(
+      query,
+      [id, slug, name, image_background, gamec],
+      {
+        autoCommit: true,
+      }
+    );
+    await connection.close();
+    console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't add publisher" });
+  }
+};
+
+export const addReview = async (req: Request, res: Response) => {
+  try {
+    const { rating_level, reviewtext, gameid, personid } = req.body;
+    console.log(rating_level, reviewtext, gameid, personid);
+    const connection = await oracledb.getConnection(con);
+    const query = `BEGIN
+    INSERT INTO REVIEWS (RATING_LEVEL, REVIEW_DATE, REVIEW_TEXT, GAMEID, PERSONID)
+    VALUES (:rating_level, sysdate, :reviewtext, :gameid, :personid);
+   END;`;
+    const result: any = await connection.execute(
+      query,
+      [rating_level, reviewtext, gameid, personid],
+      {
+        autoCommit: true,
+      }
+    );
+    await connection.close();
+    console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't add review" });
+  }
+};
+
+export const getReviews = async (req: Request, res: Response) => {
+  try {
+    const gameid = req.query.gameid;
+    console.log(gameid);
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    RATING_LEVEL AS "rating_level",
+    REVIEW_DATE AS "review_date",
+    REVIEW_TEXT AS "review_text",
+    LIKE_COUNT AS "like_count",
+    PERSONID AS "personid"
+  FROM
+    REVIEWS
+  WHERE
+    GAMEID = :gameid`;
+    const result: any = await connection.execute(query, [gameid]);
+    await connection.close();
+    const re = result.rows;
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get reviews" });
+  }
+};
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    // const personid = req.query.personid;
+    // console.log(personid);
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    PERSONID AS "personid",
+    NAME AS "name",
+    EMAIL AS "email",
+    JOINED AS "joined",
+    PROFILE_PICTURE AS "profile_picture",
+    BIO AS "bio",
+    SOCIALMEDIA_LINK AS "socialmedia_link"
+  FROM
+    PERSON
+  `;
+    const result: any = await connection.execute(query);
+    await connection.close();
+    const re = result.rows;
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get user" });
   }
 };
 

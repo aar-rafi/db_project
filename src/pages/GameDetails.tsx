@@ -1,14 +1,21 @@
 import {
+  Box,
   Button,
+  Card,
+  CardBody,
   Flex,
   GridItem,
   Heading,
   SimpleGrid,
   Spinner,
+  Text,
   useToast,
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
+import CommentButton from "../components/CommentButton";
+import CommentList from "../components/CommentList";
+import CoolNavbar from "../components/CoolNavbar";
 import Divider from "../components/Divider";
 import ExpandableText from "../components/ExpandableText";
 import GameAttributes from "../components/GameAttributes";
@@ -44,6 +51,7 @@ const GameDetails = () => {
         </div>
       </div>
       <Divider />
+      <CoolNavbar />
 
       {/* <SimpleGrid columns={1} spacing="1" margin={6}>
         <GridItem justifyItems="center"> */}
@@ -67,7 +75,15 @@ const GameDetails = () => {
         )}
       </Flex>
       <Flex justify={"center"}>
-        <RatingBar game={game} />
+        {user ? (
+          <RatingBar game={game} userid={user.uid} />
+        ) : (
+          <Card size="sm">
+            <CardBody bgColor={"tomato"}>
+              <Text>Please login to rate</Text>
+            </CardBody>
+          </Card>
+        )}
       </Flex>
       {/* </GridItem>
       </SimpleGrid> */}
@@ -85,6 +101,20 @@ const GameDetails = () => {
       </SimpleGrid>
 
       <GameTrailers gameId={game.id} />
+      <Box p={10}>
+        <Heading>Comments</Heading>
+        <Divider />
+        {user ? (
+          <CommentButton gameId={game.id} userid={user.uid} />
+        ) : (
+          <Card size="sm">
+            <CardBody bgColor="tomato">
+              <Text>Please login to comment</Text>
+            </CardBody>
+          </Card>
+        )}
+        <CommentList gameid={game.id} />
+      </Box>
     </>
   );
 };

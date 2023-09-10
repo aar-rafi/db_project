@@ -8,6 +8,10 @@ import {
   removeFromWishlist,
   updateRating,
   getRatingLevel,
+  addPublid,
+  addReview,
+  getReviews,
+  getUser,
 } from "../controller/GameController";
 import oratest from "../oracletest";
 
@@ -23,5 +27,9 @@ router.get("/getWishlist", getWishlist);
 router.delete("/removeFromWishlist/:userId/:gameId", removeFromWishlist);
 router.patch("/updateRating", updateRating);
 router.get("/getRatingLevel", getRatingLevel);
+router.post("/addPublid", addPublid);
+router.post("/addReview", addReview);
+router.get("/getReviews", getReviews);
+router.get("/getUser", getUser);
 
 export default router;

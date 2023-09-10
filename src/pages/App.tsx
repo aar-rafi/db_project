@@ -6,10 +6,12 @@ import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import HomePageCarousel from "../components/HomePageCarousel";
 import Sidebar from "../components/Sidebar";
+import CoolNavBar from "../components/CoolNavbar";
 
 function App() {
   return (
     <>
+      <CoolNavBar />
       <HomePageCarousel />
 
       <Grid
@@ -25,7 +27,7 @@ function App() {
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
             <GenreList />
-            <Sidebar />
+            {/* <Sidebar /> */}
           </GridItem>
         </Show>
         <GridItem area="main">

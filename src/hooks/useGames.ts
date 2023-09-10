@@ -13,7 +13,7 @@ const useGames = () => {
     queryFn: () =>
       apiClient.getAll({
         params: {
-          //page: gameQuery.page,
+          page: gameQuery.page,
           genres: gameQuery.genreId,
           parent_platforms: gameQuery.platformId,
           ordering: gameQuery.sortOrder,
@@ -24,20 +24,5 @@ const useGames = () => {
     staleTime: 1000 * 60 * 60 * 24,
   });
 };
-
-// const useGames = (gameQuery: GameQuery) =>
-//   useData<Game>(
-//     "/games",
-//     {
-//       params: {
-//         page: gameQuery.page,
-//         genres: gameQuery.genre?.id,
-//         parent_platforms: gameQuery.platform?.id,
-//         ordering: gameQuery.sortOrder,
-//         search: gameQuery.searchText,
-//       },
-//     },
-//     [gameQuery]
-//   );
 
 export default useGames;
