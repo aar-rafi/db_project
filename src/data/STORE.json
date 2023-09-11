@@ -1,0 +1,38 @@
+[
+  {
+    "name": "PlayStation Store",
+    "id": 3
+  },
+  {
+    "name": "Epic Games",
+    "id": 11
+  },
+  {
+    "name": "Steam",
+    "id": 1
+  },
+  {
+    "name": "Xbox 360 Store",
+    "id": 7
+  },
+  {
+    "name": "Xbox Store",
+    "id": 2
+  },
+  {
+    "name": "GOG",
+    "id": 5
+  },
+  {
+    "name": "Nintendo Store",
+    "id": 6
+  },
+  {
+    "name": "Google Play",
+    "id": 8
+  },
+  {
+    "name": "App Store",
+    "id": 4
+  }
+]

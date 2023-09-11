@@ -12,6 +12,9 @@ import Wishlist from "./pages/Wishlist";
 import Test from "./pages/Test";
 import FormComponent from "./components/FormComponent";
 import RegisterForm from "./components/Formtest";
+import PublisherInputForm from "./pages/PublisherInput";
+import CollectionsPage from "./pages/Collection";
+import EventForm from "./pages/EventForm";
 
 const routes = createBrowserRouter([
   {
@@ -32,7 +35,10 @@ const routes = createBrowserRouter([
       { path: "registration", element: <Registration /> },
       { path: "login", element: <Login /> },
       { path: "wishlist", element: <Wishlist /> },
-      { path: "test", element: <RegisterForm /> },
+      // { path: "test", element: <RegisterForm /> },
+      { path: "pub", element: <PublisherInputForm /> },
+      { path: "collection", element: <CollectionsPage /> },
+      { path: "event-create", element: <EventForm /> },
     ],
   },
 ]);

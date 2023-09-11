@@ -1,0 +1,42 @@
+[
+  {
+    "name": "PC",
+    "id": 1
+  },
+  {
+    "name": "PlayStation",
+    "id": 2
+  },
+  {
+    "name": "Xbox",
+    "id": 3
+  },
+  {
+    "name": "Nintendo",
+    "id": 7
+  },
+  {
+    "name": "Apple Macintosh",
+    "id": 5
+  },
+  {
+    "name": "Linux",
+    "id": 6
+  },
+  {
+    "name": "Android",
+    "id": 8
+  },
+  {
+    "name": "iOS",
+    "id": 4
+  },
+  {
+    "name": "Web",
+    "id": 14
+  },
+  {
+    "name": "SEGA",
+    "id": 11
+  }
+]

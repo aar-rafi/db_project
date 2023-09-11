@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
+import CollectionMenu from "../components/CollectionMenu";
 import CommentButton from "../components/CommentButton";
 import CommentList from "../components/CommentList";
 import CoolNavbar from "../components/CoolNavbar";
@@ -57,7 +58,10 @@ const GameDetails = () => {
         <GridItem justifyItems="center"> */}
       <Flex justify={"center"} p="6">
         {user ? (
-          <WishlistButton gameId={game.id} userId={user.uid} />
+          <Flex>
+            <WishlistButton gameId={game.id} userId={user.uid} />
+            <CollectionMenu puid={user.uid} gameId={game.id} />
+          </Flex>
         ) : (
           <Button
             onClick={() =>

@@ -1,0 +1,982 @@
+[
+  {
+    "name": "Singleplayer",
+    "id": 31
+  },
+  {
+    "name": "Steam Achievements",
+    "id": 40847
+  },
+  {
+    "name": "Multiplayer",
+    "id": 7
+  },
+  {
+    "name": "Full controller support",
+    "id": 40836
+  },
+  {
+    "name": "Atmospheric",
+    "id": 13
+  },
+  {
+    "name": "Great Soundtrack",
+    "id": 42
+  },
+  {
+    "name": "RPG",
+    "id": 24
+  },
+  {
+    "name": "Co-op",
+    "id": 18
+  },
+  {
+    "name": "Open World",
+    "id": 36
+  },
+  {
+    "name": "cooperative",
+    "id": 411
+  },
+  {
+    "name": "First-Person",
+    "id": 8
+  },
+  {
+    "name": "Third Person",
+    "id": 149
+  },
+  {
+    "name": "Funny",
+    "id": 4
+  },
+  {
+    "name": "Sandbox",
+    "id": 37
+  },
+  {
+    "name": "Comedy",
+    "id": 123
+  },
+  {
+    "name": "Third-Person Shooter",
+    "id": 150
+  },
+  {
+    "name": "Moddable",
+    "id": 62
+  },
+  {
+    "name": "Crime",
+    "id": 144
+  },
+  {
+    "name": "vr mod",
+    "id": 62349
+  },
+  {
+    "name": "Story Rich",
+    "id": 118
+  },
+  {
+    "name": "Fantasy",
+    "id": 64
+  },
+  {
+    "name": "Action RPG",
+    "id": 97
+  },
+  {
+    "name": "Dark",
+    "id": 41
+  },
+  {
+    "name": "Nudity",
+    "id": 44
+  },
+  {
+    "name": "controller support",
+    "id": 336
+  },
+  {
+    "name": "Choices Matter",
+    "id": 145
+  },
+  {
+    "name": "Mature",
+    "id": 192
+  },
+  {
+    "name": "Dark Fantasy",
+    "id": 40
+  },
+  {
+    "name": "Medieval",
+    "id": 66
+  },
+  {
+    "name": "Magic",
+    "id": 82
+  },
+  {
+    "name": "Multiple Endings",
+    "id": 218
+  },
+  {
+    "name": "Steam Cloud",
+    "id": 40849
+  },
+  {
+    "name": "steam-trading-cards",
+    "id": 7808
+  },
+  {
+    "name": "Sci-fi",
+    "id": 32
+  },
+  {
+    "name": "FPS",
+    "id": 30
+  },
+  {
+    "name": "Online Co-Op",
+    "id": 9
+  },
+  {
+    "name": "Female Protagonist",
+    "id": 189
+  },
+  {
+    "name": "Local Co-Op",
+    "id": 75
+  },
+  {
+    "name": "stats",
+    "id": 11669
+  },
+  {
+    "name": "Steam Workshop",
+    "id": 40852
+  },
+  {
+    "name": "Space",
+    "id": 25
+  },
+  {
+    "name": "Includes level editor",
+    "id": 40838
+  },
+  {
+    "name": "Captions available",
+    "id": 40833
+  },
+  {
+    "name": "Commentary available",
+    "id": 40834
+  },
+  {
+    "name": "Science",
+    "id": 87
+  },
+  {
+    "name": "Classic",
+    "id": 193
+  },
+  {
+    "name": "Exploration",
+    "id": 6
+  },
+  {
+    "name": "Stealth",
+    "id": 15
+  },
+  {
+    "name": "Action-Adventure",
+    "id": 69
+  },
+  {
+    "name": "Retro",
+    "id": 74
+  },
+  {
+    "name": "Cinematic",
+    "id": 110
+  },
+  {
+    "name": "Quick-Time Events",
+    "id": 269
+  },
+  {
+    "name": "Dinosaurs",
+    "id": 126
+  },
+  {
+    "name": "Lara Croft",
+    "id": 306
+  },
+  {
+    "name": "Tactical",
+    "id": 80
+  },
+  {
+    "name": "PvP",
+    "id": 157
+  },
+  {
+    "name": "War",
+    "id": 70
+  },
+  {
+    "name": "In-App Purchases",
+    "id": 40837
+  },
+  {
+    "name": "Team-Based",
+    "id": 11
+  },
+  {
+    "name": "Realistic",
+    "id": 77
+  },
+  {
+    "name": "Fast-Paced",
+    "id": 131
+  },
+  {
+    "name": "Military",
+    "id": 81
+  },
+  {
+    "name": "Competitive",
+    "id": 170
+  },
+  {
+    "name": "Valve Anti-Cheat enabled",
+    "id": 40856
+  },
+  {
+    "name": "e-sports",
+    "id": 73
+  },
+  {
+    "name": "Trading",
+    "id": 245
+  },
+  {
+    "name": "Partial Controller Support",
+    "id": 40845
+  },
+  {
+    "name": "Short",
+    "id": 111
+  },
+  {
+    "name": "Physics",
+    "id": 114
+  },
+  {
+    "name": "Dark Humor",
+    "id": 148
+  },
+  {
+    "name": "Includes Source SDK",
+    "id": 40839
+  },
+  {
+    "name": "Horror",
+    "id": 16
+  },
+  {
+    "name": "Gore",
+    "id": 26
+  },
+  {
+    "name": "Survival",
+    "id": 1
+  },
+  {
+    "name": "Zombies",
+    "id": 63
+  },
+  {
+    "name": "Post-apocalyptic",
+    "id": 43
+  },
+  {
+    "name": "Survival Horror",
+    "id": 17
+  },
+  {
+    "name": "Replay Value",
+    "id": 5
+  },
+  {
+    "name": "role-playing",
+    "id": 468
+  },
+  {
+    "name": "Character Customization",
+    "id": 121
+  },
+  {
+    "name": "Lore-Rich",
+    "id": 205
+  },
+  {
+    "name": "Dragons",
+    "id": 215
+  },
+  {
+    "name": "Controller",
+    "id": 115
+  },
+  {
+    "name": "Dystopian",
+    "id": 119
+  },
+  {
+    "name": "Steampunk",
+    "id": 154
+  },
+  {
+    "name": "Linear",
+    "id": 305
+  },
+  {
+    "name": "Alternate History",
+    "id": 208
+  },
+  {
+    "name": "Time Travel",
+    "id": 317
+  },
+  {
+    "name": "Political",
+    "id": 287
+  },
+  {
+    "name": "Violent",
+    "id": 34
+  },
+  {
+    "name": "Historical",
+    "id": 89
+  },
+  {
+    "name": "3rd-Person Perspective",
+    "id": 478
+  },
+  {
+    "name": "Online PvP",
+    "id": 45878
+  },
+  {
+    "name": "Blood",
+    "id": 270
+  },
+  {
+    "name": "America",
+    "id": 78
+  },
+  {
+    "name": "Masterpiece",
+    "id": 578
+  },
+  {
+    "name": "Beautiful",
+    "id": 577
+  },
+  {
+    "name": "Hunting",
+    "id": 181
+  },
+  {
+    "name": "Western",
+    "id": 152
+  },
+  {
+    "name": "3rd-person",
+    "id": 5452
+  },
+  {
+    "name": "Point & Click",
+    "id": 141
+  },
+  {
+    "name": "Mystery",
+    "id": 117
+  },
+  {
+    "name": "Memes",
+    "id": 120
+  },
+  {
+    "name": "Walking Simulator",
+    "id": 91
+  },
+  {
+    "name": "Story",
+    "id": 406
+  },
+  {
+    "name": "Episodic",
+    "id": 232
+  },
+  {
+    "name": "Soundtrack",
+    "id": 295
+  },
+  {
+    "name": "Time Manipulation",
+    "id": 302
+  },
+  {
+    "name": "student",
+    "id": 992
+  },
+  {
+    "name": "strange",
+    "id": 2682
+  },
+  {
+    "name": "photography",
+    "id": 3197
+  },
+  {
+    "name": "Futuristic",
+    "id": 167
+  },
+  {
+    "name": "Stylized",
+    "id": 166
+  },
+  {
+    "name": "Loot",
+    "id": 98
+  },
+  {
+    "name": "Aliens",
+    "id": 172
+  },
+  {
+    "name": "Silent Protagonist",
+    "id": 319
+  },
+  {
+    "name": "Underwater",
+    "id": 250
+  },
+  {
+    "name": "2D",
+    "id": 45
+  },
+  {
+    "name": "Difficult",
+    "id": 49
+  },
+  {
+    "name": "Side Scroller",
+    "id": 113
+  },
+  {
+    "name": "Surreal",
+    "id": 46
+  },
+  {
+    "name": "Puzzle-Platformer",
+    "id": 83
+  },
+  {
+    "name": "Minimalist",
+    "id": 112
+  },
+  {
+    "name": "Hack and Slash",
+    "id": 68
+  },
+  {
+    "name": "exclusive",
+    "id": 37796
+  },
+  {
+    "name": "Crafting",
+    "id": 125
+  },
+  {
+    "name": "combat",
+    "id": 1465
+  },
+  {
+    "name": "true exclusive",
+    "id": 37797
+  },
+  {
+    "name": "3D",
+    "id": 571
+  },
+  {
+    "name": "PvE",
+    "id": 171
+  },
+  {
+    "name": "Emotional",
+    "id": 572
+  },
+  {
+    "name": "Mythology",
+    "id": 108
+  },
+  {
+    "name": "Souls-like",
+    "id": 580
+  },
+  {
+    "name": "Remote Play on TV",
+    "id": 43374
+  },
+  {
+    "name": "Free to Play",
+    "id": 79
+  },
+  {
+    "name": "Online multiplayer",
+    "id": 397
+  },
+  {
+    "name": "online",
+    "id": 413
+  },
+  {
+    "name": "MMORPG",
+    "id": 158
+  },
+  {
+    "name": "city",
+    "id": 2030
+  },
+  {
+    "name": "console",
+    "id": 5816
+  },
+  {
+    "name": "friends",
+    "id": 744
+  },
+  {
+    "name": "weapons",
+    "id": 3109
+  },
+  {
+    "name": "skill",
+    "id": 1484
+  },
+  {
+    "name": "destroy",
+    "id": 3046
+  },
+  {
+    "name": "collect",
+    "id": 1743
+  },
+  {
+    "name": "hunt",
+    "id": 2184
+  },
+  {
+    "name": "gun",
+    "id": 754
+  },
+  {
+    "name": "rain",
+    "id": 1527
+  },
+  {
+    "name": "enemy",
+    "id": 18426
+  },
+  {
+    "name": "quick",
+    "id": 691
+  },
+  {
+    "name": "darkness",
+    "id": 2863
+  },
+  {
+    "name": "defender",
+    "id": 6580
+  },
+  {
+    "name": "Remake",
+    "id": 271
+  },
+  {
+    "name": "Demons",
+    "id": 187
+  },
+  {
+    "name": "Cross-Platform Multiplayer",
+    "id": 40832
+  },
+  {
+    "name": "Robots",
+    "id": 197
+  },
+  {
+    "name": "Cartoony",
+    "id": 164
+  },
+  {
+    "name": "Cartoon",
+    "id": 179
+  },
+  {
+    "name": "Class-Based",
+    "id": 265
+  },
+  {
+    "name": "Heist",
+    "id": 216
+  },
+  {
+    "name": "Gun Customization",
+    "id": 274
+  },
+  {
+    "name": "Drama",
+    "id": 209
+  },
+  {
+    "name": "Experience",
+    "id": 324
+  },
+  {
+    "name": "open-world",
+    "id": 43574
+  },
+  {
+    "name": "atmosphere",
+    "id": 6498
+  },
+  {
+    "name": "first person mod",
+    "id": 62348
+  },
+  {
+    "name": "Satire",
+    "id": 153
+  },
+  {
+    "name": "Bowling",
+    "id": 321
+  },
+  {
+    "name": "Split Screen",
+    "id": 198
+  },
+  {
+    "name": "Local Multiplayer",
+    "id": 72
+  },
+  {
+    "name": "4 Player Local",
+    "id": 182
+  },
+  {
+    "name": "4 giocatori divano",
+    "id": 87822
+  },
+  {
+    "name": "Football",
+    "id": 191
+  },
+  {
+    "name": "Soccer",
+    "id": 190
+  },
+  {
+    "name": "lan party",
+    "id": 87821
+  },
+  {
+    "name": "Cyberpunk",
+    "id": 226
+  },
+  {
+    "name": "Sexual Content",
+    "id": 50
+  },
+  {
+    "name": "Hacking",
+    "id": 227
+  },
+  {
+    "name": "Role Playing Game",
+    "id": 467
+  },
+  {
+    "name": "immersive",
+    "id": 1500
+  },
+  {
+    "name": "Photorealistic",
+    "id": 683
+  },
+  {
+    "name": "Pixel Graphics",
+    "id": 122
+  },
+  {
+    "name": "Family Friendly",
+    "id": 107
+  },
+  {
+    "name": "Building",
+    "id": 39
+  },
+  {
+    "name": "overlay",
+    "id": 337
+  },
+  {
+    "name": "RTS",
+    "id": 168
+  },
+  {
+    "name": "Tower Defense",
+    "id": 65
+  },
+  {
+    "name": "MOBA",
+    "id": 169
+  },
+  {
+    "name": "SteamVR Collectibles",
+    "id": 40909
+  },
+  {
+    "name": "Parkour",
+    "id": 188
+  },
+  {
+    "name": "Ninja",
+    "id": 186
+  },
+  {
+    "name": "looter shooter",
+    "id": 38844
+  },
+  {
+    "name": "3D Vision",
+    "id": 133
+  },
+  {
+    "name": "Based On A Novel",
+    "id": 283
+  },
+  {
+    "name": "Benchmark",
+    "id": 296
+  },
+  {
+    "name": "Steam Leaderboards",
+    "id": 40850
+  },
+  {
+    "name": "Horses",
+    "id": 128
+  },
+  {
+    "name": "Beat 'em up",
+    "id": 203
+  },
+  {
+    "name": "Detective",
+    "id": 142
+  },
+  {
+    "name": "Comic Book",
+    "id": 268
+  },
+  {
+    "name": "Superhero",
+    "id": 234
+  },
+  {
+    "name": "Batman",
+    "id": 328
+  },
+  {
+    "name": "Visual Novel",
+    "id": 90
+  },
+  {
+    "name": "Choose Your Own Adventure",
+    "id": 222
+  },
+  {
+    "name": "Nonlinear",
+    "id": 146
+  },
+  {
+    "name": "Illuminati",
+    "id": 178
+  },
+  {
+    "name": "Driving",
+    "id": 130
+  },
+  {
+    "name": "Remote Play on Tablet",
+    "id": 43578
+  },
+  {
+    "name": "Remote Play on Phone",
+    "id": 43577
+  },
+  {
+    "name": "controversial",
+    "id": 18188
+  },
+  {
+    "name": "karaihb",
+    "id": 74338
+  },
+  {
+    "name": "Assassin",
+    "id": 278
+  },
+  {
+    "name": "steam",
+    "id": 5842
+  },
+  {
+    "name": "category",
+    "id": 7517
+  },
+  {
+    "name": "microtranzations",
+    "id": 44631
+  },
+  {
+    "name": "Philisophical",
+    "id": 281
+  },
+  {
+    "name": "Battle Royale",
+    "id": 35162
+  },
+  {
+    "name": "Hero Shooter",
+    "id": 49953
+  },
+  {
+    "name": "lootboxes",
+    "id": 12983
+  },
+  {
+    "name": "Cute",
+    "id": 88
+  },
+  {
+    "name": "Metroidvania",
+    "id": 259
+  },
+  {
+    "name": "Hand-drawn",
+    "id": 258
+  },
+  {
+    "name": "Gothic",
+    "id": 204
+  },
+  {
+    "name": "achievements",
+    "id": 334
+  },
+  {
+    "name": "2.5D",
+    "id": 116
+  },
+  {
+    "name": "Colorful",
+    "id": 165
+  },
+  {
+    "name": "Time Attack",
+    "id": 280
+  },
+  {
+    "name": "european",
+    "id": 19728
+  },
+  {
+    "name": "Top-Down",
+    "id": 61
+  },
+  {
+    "name": "Music",
+    "id": 136
+  },
+  {
+    "name": "Top-Down Shooter",
+    "id": 236
+  },
+  {
+    "name": "1980s",
+    "id": 224
+  },
+  {
+    "name": "Psychedelic",
+    "id": 286
+  },
+  {
+    "name": "Conspiracy",
+    "id": 291
+  },
+  {
+    "name": "Transhumanism",
+    "id": 301
+  },
+  {
+    "name": "new york",
+    "id": 43369
+  },
+  {
+    "name": "Psychological",
+    "id": 285
+  },
+  {
+    "name": "Lovecraftian",
+    "id": 47
+  },
+  {
+    "name": "Narration",
+    "id": 200
+  },
+  {
+    "name": "Supernatural",
+    "id": 279
+  },
+  {
+    "name": "Thriller",
+    "id": 183
+  },
+  {
+    "name": "enviroment",
+    "id": 7629
+  },
+  {
+    "name": "psycholoical-horror",
+    "id": 36002
+  },
+  {
+    "name": "1990's",
+    "id": 243
+  },
+  {
+    "name": "World War II",
+    "id": 105
+  }
+]

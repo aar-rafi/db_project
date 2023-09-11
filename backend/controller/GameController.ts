@@ -332,6 +332,153 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
+// Get games with dynamic options including platform selection
+export const getGamesOrdered = async (req: Request, res: Response) => {
+  // const db = req.db;
+  const connection = await oracledb.getConnection(con);
+  const { page = 1, pageSize = 10, ordering, platformId } = req.query;
+  const defaultOrdering = "name"; // Set your default ordering here
+  const defaultPlatformId = 1; // Set your default platform ID here
+
+  const nPage = parseInt(page as string);
+  const nPageSize = parseInt(pageSize as string);
+
+  const offset = (nPage - 1) * nPageSize;
+
+  try {
+    let query = `SELECT g.*, p.name AS publisher_name, gnr.name AS genre_name
+                 FROM games g
+                 LEFT JOIN publishers p ON g.publisher_id = p.id
+                 LEFT JOIN genres gnr ON g.genre_id = gnr.id`;
+
+    // Join the bridge table with the platform table
+    query += `
+      LEFT JOIN game_platform gp ON g.id = gp.game_id
+      LEFT JOIN platforms plat ON gp.platform_id = plat.id`;
+
+    const queryParams: any = {
+      offset,
+      limit: nPageSize,
+    };
+
+    if (platformId) {
+      query += ` WHERE plat.id = :platformId`;
+      queryParams.platformId = platformId;
+    }
+
+    query += ` ORDER BY g.${ordering || defaultOrdering}
+               OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY`;
+
+    const result = await connection.execute(query, queryParams);
+
+    const games = result.rows;
+    res.json(games);
+  } catch (error) {
+    console.error("Error fetching games:", error);
+    res.status(500).json({ error: "Error fetching games" });
+  }
+};
+
+export const getCollections = async (req: Request, res: Response) => {
+  try {
+    const { personid, collectionid } = req.query;
+    console.log(personid, collectionid);
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    GAMEID AS "gameid",
+    COLLECTIONID AS "collectionid",
+    PERSONID AS "personid"
+  FROM
+    COLLECTION
+  WHERE
+    PERSONID = :personid AND COLLECTIONID = :collectionid`;
+    const result: any = await connection.execute(query, [
+      personid,
+      collectionid,
+    ]);
+    await connection.close();
+    const re = result.rows;
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get collections" });
+  }
+};
+
+export const getCollectionFolder = async (req: Request, res: Response) => {
+  try {
+    const personid = req.query.personid;
+
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    ID AS "id",
+    NAME AS "name",
+    DESCRIPTION AS "description"
+    PERSONID AS "personid"
+  FROM
+    COLLECTION_FOLDER
+  WHERE
+    PERSONID = :personid`;
+    const result: any = await connection.execute(query, [personid]);
+    await connection.close();
+    const re = result.rows;
+    console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get collections" });
+  }
+};
+
+export const addCollectionFolder = async (req: Request, res: Response) => {
+  try {
+    const { id, name, description, personid } = req.body;
+    console.log(name, description, personid);
+    const connection = await oracledb.getConnection(con);
+    const query = `BEGIN
+    INSERT INTO COLLECTION (NAME, DESCRIPTION, PERSONID)
+    VALUES (:name, :description, :personid);
+    END;`;
+    const result: any = await connection.execute(
+      query,
+      [name, description, personid],
+      {
+        autoCommit: true,
+      }
+    );
+    await connection.close();
+    console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't add collection" });
+  }
+};
+
+export const addGameToCollection = async (req: Request, res: Response) => {
+  try {
+    const { gameid, collectionid, personid } = req.body;
+    console.log(gameid, collectionid, personid);
+    const connection = await oracledb.getConnection(con);
+    const query = `BEGIN
+    INSERT INTO COLLECTION_GAME (GAMEID, COLLECTIONID, PERSONID)
+    VALUES (:gameid, :collectionid,:personid);
+    END;`;
+    const result: any = await connection.execute(
+      query,
+      [gameid, collectionid, personid],
+      {
+        autoCommit: true,
+      }
+    );
+    await connection.close();
+    console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ msg: error.message || "can't add game to collection" });
+  }
+};
+
 //export const getGames =
 // async function getGame() {
 //   const response = await prisma.game.findMany();

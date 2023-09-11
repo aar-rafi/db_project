@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Action",
+    "id": 4
+  },
+  {
+    "name": "Adventure",
+    "id": 3
+  },
+  {
+    "name": "RPG",
+    "id": 5
+  },
+  {
+    "name": "Shooter",
+    "id": 2
+  },
+  {
+    "name": "Puzzle",
+    "id": 7
+  },
+  {
+    "name": "Indie",
+    "id": 51
+  },
+  {
+    "name": "Platformer",
+    "id": 83
+  },
+  {
+    "name": "Massively Multiplayer",
+    "id": 59
+  },
+  {
+    "name": "Sports",
+    "id": 15
+  },
+  {
+    "name": "Racing",
+    "id": 1
+  },
+  {
+    "name": "Simulation",
+    "id": 14
+  },
+  {
+    "name": "Arcade",
+    "id": 11
+  }
+]

@@ -224,7 +224,12 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Box } from "@chakra-ui/react";
 
-interface MultiselectTestProps {}
+interface MultiselectTestProps {
+  optio: Option[];
+  onNextStep?: () => void;
+  onPrevStep?: () => void;
+  onFormDataChange?: (data: any) => void;
+}
 
 interface Option {
   name: string;
@@ -249,7 +254,7 @@ const opt = [
 //   this.multiselectRef = React.createRef();
 // };
 
-const MultiselectTest: React.FC<MultiselectTestProps> = () => {
+const MultiselectTest: React.FC<MultiselectTestProps> = ({ optio }) => {
   const navigate = useNavigate();
   const [state, setState] = useState<MultiselectTestState>({
     selectedOptions: [],
@@ -277,7 +282,7 @@ const MultiselectTest: React.FC<MultiselectTestProps> = () => {
       //   const response = await Axios.get<Option[]>(
       //     "YOUR_BACKEND_OPTIONS_ENDPOINT"
       //   );
-      const backendOptions = opt;
+      const backendOptions = optio;
       setState((prevState) => ({
         ...prevState,
         options: backendOptions,
@@ -348,10 +353,10 @@ const MultiselectTest: React.FC<MultiselectTestProps> = () => {
       <br />
       <br />
       {/* <button onClick={() => navigate("/random/")}>Go to another page</button> */}
-      <button onClick={handleGetSelectedItems}>Get Selected Items</button>
+      {/* <button onClick={handleGetSelectedItems}>Get Selected Items</button>
       <button onClick={handleGetSelectedItemsCount}>
         Get Selected Items Count
-      </button>
+      </button> */}
     </div>
   );
 };

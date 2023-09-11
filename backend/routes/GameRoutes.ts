@@ -12,6 +12,10 @@ import {
   addReview,
   getReviews,
   getUser,
+  addCollectionFolder,
+  addGameToCollection,
+  getCollectionFolder,
+  getCollections,
 } from "../controller/GameController";
 import oratest from "../oracletest";
 
@@ -31,5 +35,9 @@ router.post("/addPublid", addPublid);
 router.post("/addReview", addReview);
 router.get("/getReviews", getReviews);
 router.get("/getUser", getUser);
+router.get("/getCollectionFolder", getCollectionFolder);
+router.get("/getCollections", getCollections);
+router.post("/addToCollection", addGameToCollection);
+router.post("/addCollectionFolder", addCollectionFolder);
 
 export default router;

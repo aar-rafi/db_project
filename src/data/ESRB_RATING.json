@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Mature",
+    "id": 4
+  },
+  {
+    "name": "Everyone 10+",
+    "id": 2
+  },
+  {
+    "name": "Teen",
+    "id": 3
+  },
+  {
+    "name": "Adults Only",
+    "id": 5
+  },
+  {
+    "name": "Everyone",
+    "id": 1
+  }
+]
