@@ -2,14 +2,22 @@ import { Box, HStack, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Game } from "../entities/Game";
 import useRatingLevel, { RatingLevel } from "../hooks/useRatingLevel";
+import useReviews from "../hooks/useReviews";
 import apiServer from "../services/api-server";
 
 const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
   game,
   userid,
 }) => {
-  const { data, isLoading, isError } = useRatingLevel(game.id);
-  const [updatedData, setUpdatedData] = useState<RatingLevel[]>(data!);
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: rat_lav_fetch,
+  } = useRatingLevel(game.id);
+  const { data: reviews, refetch: rev_fetch } = useReviews(game.id);
+
+  const [updatedData, setUpdatedData] = useState<RatingLevel[]>([]);
   const [selectedRating, setSelectedRating] = useState<string | null>(null);
 
   const reqBody = {
@@ -24,6 +32,10 @@ const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
     // Check if data is available and not loading
     if (data && !isLoading) {
       console.log("data:", data);
+      const s = reviews?.find(
+        (review) => review.personid === userid
+      )?.rating_level;
+      setSelectedRating(s ? s : null);
       // Initialize updatedData with the fetched data
       setUpdatedData(data);
     }
@@ -41,9 +53,25 @@ const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
             ?.ratingid,
           title: ratingTitle,
         });
-        // ho;
+        rat_lav_fetch();
       } else {
-        // Otherwise, select the new rating
+        // let in_value = 1;
+        if (
+          reviews?.find((review) => review.personid === userid)?.rating_level !=
+          ratingTitle
+        ) {
+          apiServer.patch("/decreaseRatingCount", {
+            gameId: game.id,
+            ratingId: updatedData?.find(
+              (rating) =>
+                rating.title ===
+                reviews?.find((review) => review.personid === userid)
+                  ?.rating_level
+            )?.ratingid,
+          });
+          rat_lav_fetch();
+          // in_value = -1;
+        }
         setSelectedRating(ratingTitle);
         await apiServer.patch("/updateRating", {
           ...reqBody,
@@ -54,12 +82,16 @@ const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
         });
         // ho;
       }
-      const uD = data?.map((rating) => {
+      const uD = updatedData?.map((rating) => {
         if (rating.title === ratingTitle) {
           return {
             ...rating,
             rating_count:
-              rating.rating_count + (selectedRating === ratingTitle ? 0 : 1),
+              rating.rating_count +
+              (reviews?.find((review) => review.personid === userid)
+                ?.rating_level === ratingTitle
+                ? 0
+                : 1),
           };
         }
         return rating;

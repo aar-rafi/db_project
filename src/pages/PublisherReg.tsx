@@ -56,7 +56,7 @@ const Form1 = ({
   return (
     <>
       <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Registration
+        Publisher Registration
       </Heading>
       <Flex>
         <FormControl mr="5%">
@@ -410,14 +410,13 @@ const Form3 = ({
 const userData = {
   personid: "12345",
   name: "JohnDoe",
-  email: "johndoe@example.com",
-  password: "your_password",
+  //   email: "johndoe@example.com",
+  //   password: "your_password",
   bio: "Some bio text",
-  profile_picture: "https://example.com/johndoe/profile_pic.jpg",
   socialmedialink: "https://example.com/johndoe",
 };
 
-export default function Multistep() {
+const PublisherReg = () => {
   const toast = useToast();
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
@@ -442,6 +441,7 @@ export default function Multistep() {
       );
 
       const user = userCredential.user;
+      console.log(user);
       const profilePic = uploadedFile;
       const storageRef = ref(storage, `users_pic/${user.uid}/profile_pic.jpg`);
       if (profilePic) {
@@ -470,14 +470,11 @@ export default function Multistep() {
 
       userData.personid = user.uid;
       userData.name = username;
-      userData.email = email;
-      userData.password = password;
       userData.bio = bio;
-      userData.profile_picture = profilePicUrl;
       userData.socialmedialink = socialHandles;
 
       apiServer
-        .post("/registerUser", userData)
+        .post("/registerPublisher", userData)
         .then((response) => {
           console.log(response);
         })
@@ -608,4 +605,6 @@ export default function Multistep() {
       </Box>
     </>
   );
-}
+};
+
+export default PublisherReg;

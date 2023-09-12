@@ -15,6 +15,8 @@ import RegisterForm from "./components/Formtest";
 import PublisherInputForm from "./pages/PublisherInput";
 import CollectionsPage from "./pages/Collection";
 import EventForm from "./pages/EventForm";
+import PublisherReg from "./pages/PublisherReg";
+import Event from "./pages/Event";
 
 const routes = createBrowserRouter([
   {
@@ -39,6 +41,15 @@ const routes = createBrowserRouter([
       { path: "pub", element: <PublisherInputForm /> },
       { path: "collection", element: <CollectionsPage /> },
       { path: "event-create", element: <EventForm /> },
+      {
+        path: "publisherreg",
+        element: (
+          <AuthRoutes>
+            <PublisherReg />
+          </AuthRoutes>
+        ),
+      },
+      { path: "event", element: <Event /> },
     ],
   },
 ]);

@@ -1,10 +1,21 @@
-import { Avatar, Badge, Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Icon,
+  Text,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { auth } from "../firebase/firebaseconfig";
 import useReviews, { Review } from "../hooks/useReviews";
 import useUser, { User } from "../hooks/useUser"; // Make sure to import the User type
+import CommentButton from "./ReviewButton";
 
 interface Custom extends Review {
   pic: string | null;
@@ -12,14 +23,16 @@ interface Custom extends Review {
 
 const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
   const [user] = useAuthState(auth);
-  const { data: reviews } = useReviews(gameid);
+  const { data: reviews, refetch } = useReviews(gameid);
   const { data: persons } = useUser();
+  const rating_lev = reviews?.map((review) => review.rating_level);
 
-  const [comments, setComments] = useState<Custom[]>([]);
+  const [newreviews, setreviews] = useState<Custom[]>([]);
 
   useEffect(() => {
     if (reviews && persons) {
-      const updatedComments = reviews.map((review) => {
+      refetch();
+      const updatedreviews = reviews.map((review) => {
         const userWithProfile = persons.find(
           (p) => p.personid === review.personid
         );
@@ -28,13 +41,13 @@ const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
           pic: userWithProfile?.profile_picture || null,
         };
       });
-      setComments(updatedComments);
+      setreviews(updatedreviews);
     }
   }, [reviews, persons]);
 
   const handleLikeClick = (commentId: string) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
+    setreviews((prevreviews) =>
+      prevreviews.map((comment) =>
         comment.personid === commentId
           ? {
               ...comment,
@@ -50,7 +63,16 @@ const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
 
   return (
     <div>
-      {comments?.map((comment) => (
+      {user ? (
+        <CommentButton gameId={gameid} userid={user.uid} refresh={refetch} />
+      ) : (
+        <Card size="sm">
+          <CardBody bgColor="tomato">
+            <Text>Please login to comment</Text>
+          </CardBody>
+        </Card>
+      )}
+      {newreviews?.map((comment) => (
         <Flex
           key={comment.personid}
           alignItems="center"

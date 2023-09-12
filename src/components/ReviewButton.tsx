@@ -8,9 +8,10 @@ import { auth } from "../firebase/firebaseconfig";
 interface CommentProps {
   gameId: number; // Add any other necessary props
   userid?: string;
+  refresh: () => void;
 }
 
-const CommentButton = ({ gameId, userid }: CommentProps) => {
+const CommentButton = ({ gameId, userid, refresh }: CommentProps) => {
   // const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
 
@@ -26,8 +27,9 @@ const CommentButton = ({ gameId, userid }: CommentProps) => {
       };
       await apiServer.post("/addReview", requestBody);
     } catch (error) {
-      // Handle error
+      console.log(error);
     }
+    refresh();
     setComment("");
   };
 
@@ -39,7 +41,7 @@ const CommentButton = ({ gameId, userid }: CommentProps) => {
         borderBottomColor="green.400"
       >
         <Textarea
-          placeholder="Write your comment..."
+          placeholder="Write your reviews..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />

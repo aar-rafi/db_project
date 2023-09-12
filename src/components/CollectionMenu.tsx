@@ -30,7 +30,10 @@ const CollectionMenu: React.FC<{ puid: string; gameId: number }> = ({
       </MenuButton>
       <MenuList>
         {collections?.map((collection) => (
-          <MenuItem onClick={() => handleClick(collection.id)}>
+          <MenuItem
+            onClick={() => handleClick(collection.id)}
+            key={collection.id}
+          >
             {collection.name}
           </MenuItem>
         ))}

@@ -8,10 +8,13 @@ import {
   Button,
   Image,
 } from "@chakra-ui/react";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { motion } from "framer-motion";
+import apiServer from "../services/api-server";
+import { useNavigate } from "react-router-dom";
 
 const EventForm: React.FC = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [organizer, setOrganizer] = useState("");
@@ -54,6 +57,34 @@ const EventForm: React.FC = () => {
       // Handle errors here.
       console.error("Error uploading image to Firebase Storage:", error);
     }
+
+    const url = await getDownloadURL(storageRef);
+    apiServer
+      .post("/addEvent", {
+        title: title,
+        description: description,
+        organizer: organizer,
+        image: url,
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/events");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const sendtodb = async (url: string) => {
+    const requestBody = {
+      title: title,
+      description: description,
+      organizer: organizer,
+      image: image,
+    };
+    apiServer.post("/addEvent", requestBody).then((res) => {
+      console.log(res);
+    });
   };
 
   return (

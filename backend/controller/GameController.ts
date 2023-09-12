@@ -31,7 +31,7 @@ export const getGenre = async (_req: Request, res: Response) => {
     const tr = [] as any;
     tr.push({ re: result.rows });
     const response = result.rows;
-    console.log(response);
+    // console.log(response);
 
     res.status(200).json(response);
   } catch (error: any) {
@@ -51,14 +51,14 @@ export const getParentPlatform = async (_req: Request, res: Response) => {
 export const addToWishlist = async (req: Request, res: Response) => {
   try {
     const { userId, gameId } = req.body;
-    console.log(userId, gameId);
+    // console.log(userId, gameId);
     const connection = await oracledb.getConnection(con);
     const query = `INSERT INTO WISHLIST(PERSONID, GAMEID) VALUES (:userid,:gameid)`;
     const result: any = await connection.execute(query, [userId, gameId], {
       autoCommit: true,
     });
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(201).json({ msg: "success" });
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't add to wishlist" });
@@ -71,6 +71,7 @@ interface User {
   email: string;
   password: string;
   bio: string;
+  profile_picture: string;
   socialmedia_link: string;
 }
 
@@ -83,6 +84,7 @@ export const registerUser = async (req: Request, res: Response) => {
       email: req.body.email || "",
       password: req.body.password || "",
       bio: req.body.bio || "",
+      profile_picture: req.body.profile_picture || "",
       socialmedia_link: req.body.socialmedialink || "",
     };
 
@@ -116,7 +118,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const result = await connection.execute(query, bindVars, {
       autoCommit: true,
     });
-    console.log(result);
+    // console.log(result);
     await connection.close();
 
     res.status(201).json({ msg: "User registered successfully" });
@@ -129,7 +131,7 @@ export const registerUser = async (req: Request, res: Response) => {
 export const getWishlist = async (req: Request, res: Response) => {
   try {
     const personid = req.query.personid;
-    console.log(personid);
+    // console.log(personid);
     const connection = await oracledb.getConnection(con);
     const query = `SELECT DISTINCT
           G.ID AS id,
@@ -147,7 +149,7 @@ export const getWishlist = async (req: Request, res: Response) => {
     const result: any = await connection.execute(query, [personid]);
     await connection.close();
     const re = forWishlist(result.rows);
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get wishlist" });
@@ -155,25 +157,31 @@ export const getWishlist = async (req: Request, res: Response) => {
 };
 
 export const removeFromWishlist = async (req: Request, res: Response) => {
-  const { userId, gameId } = req.params;
+  try {
+    const { userId, gameId } = req.params;
 
-  const connection = await oracledb.getConnection(con);
-  const query = `DELETE FROM wishlist
+    const connection = await oracledb.getConnection(con);
+    const query = `DELETE FROM wishlist
   WHERE personid = :userId
   AND gameid = :gameId`;
 
-  const result: any = await connection.execute(query, [userId, gameId], {
-    autoCommit: true,
-  });
-  await connection.close();
-  console.log(result.rows);
-  res.status(200).json({ msg: "game deleted from wishlist successfully" });
+    const result: any = await connection.execute(query, [userId, gameId], {
+      autoCommit: true,
+    });
+    await connection.close();
+    // console.log(result.rows);
+    res.status(200).json({ msg: "game deleted from wishlist successfully" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ msg: error.message || "can't delete from wishlist" });
+  }
 };
 
 export const updateRating = async (req: Request, res: Response) => {
   try {
     const { incrementValue, gameId, ratingId, uid, title } = req.body;
-    console.log(incrementValue, gameId, ratingId);
+    // console.log(incrementValue, gameId, ratingId);
     const connection = await oracledb.getConnection(con);
 
     const query = `
@@ -194,7 +202,7 @@ export const updateRating = async (req: Request, res: Response) => {
     await connection.commit();
 
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(204).json({ msg: "success" });
   } catch (error: any) {
     console.log(error);
@@ -207,10 +215,28 @@ export const updateRating = async (req: Request, res: Response) => {
   }
 };
 
+export const decreaseRatingCount = async (req: Request, res: Response) => {
+  try {
+    const { gameId, ratingId } = req.body;
+    // console.log(gameId, ratingId);
+    const connection = await oracledb.getConnection(con);
+    const query = `UPDATE GAME_RATING SET RATING_COUNT= RATING_COUNT -1
+    WHERE GAMEID=:gameid AND RATINGID=:ratingid`;
+    const result: any = await connection.execute(query, [gameId, ratingId]);
+    await connection.close();
+    // console.log(result);
+    res.status(204).json({ msg: "success" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ msg: error.message || "can't decrease rating count" });
+  }
+};
+
 export const getRatingLevel = async (req: Request, res: Response) => {
   try {
     const { gameid } = req.query;
-    console.log(gameid);
+    // console.log(gameid);
     const connection = await oracledb.getConnection(con);
     const query = `SELECT
     RATINGID as "ratingid",
@@ -226,7 +252,7 @@ export const getRatingLevel = async (req: Request, res: Response) => {
     const result: any = await connection.execute(query, [gameid]);
     await connection.close();
     const re = result.rows;
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get rating level" });
@@ -236,7 +262,7 @@ export const getRatingLevel = async (req: Request, res: Response) => {
 export const addPublid = async (req: Request, res: Response) => {
   try {
     const { id, slug, name, image_background, gamec } = req.body;
-    console.log(id, slug, name, image_background, gamec);
+    // console.log(id, slug, name, image_background, gamec);
     const connection = await oracledb.getConnection(con);
     // UPDATE GAME SET PUBLISHERID=:id WHERE ID=:gameid;
     const query = `BEGIN
@@ -250,7 +276,7 @@ export const addPublid = async (req: Request, res: Response) => {
       }
     );
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(201).json({ msg: "success" });
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't add publisher" });
@@ -260,7 +286,7 @@ export const addPublid = async (req: Request, res: Response) => {
 export const addReview = async (req: Request, res: Response) => {
   try {
     const { rating_level, reviewtext, gameid, personid } = req.body;
-    console.log(rating_level, reviewtext, gameid, personid);
+    // console.log(rating_level, reviewtext, gameid, personid);
     const connection = await oracledb.getConnection(con);
     const query = `BEGIN
     INSERT INTO REVIEWS (RATING_LEVEL, REVIEW_DATE, REVIEW_TEXT, GAMEID, PERSONID)
@@ -274,7 +300,7 @@ export const addReview = async (req: Request, res: Response) => {
       }
     );
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(201).json({ msg: "success" });
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't add review" });
@@ -284,7 +310,7 @@ export const addReview = async (req: Request, res: Response) => {
 export const getReviews = async (req: Request, res: Response) => {
   try {
     const gameid = req.query.gameid;
-    console.log(gameid);
+    // console.log(gameid);
     const connection = await oracledb.getConnection(con);
     const query = `SELECT
     RATING_LEVEL AS "rating_level",
@@ -299,7 +325,7 @@ export const getReviews = async (req: Request, res: Response) => {
     const result: any = await connection.execute(query, [gameid]);
     await connection.close();
     const re = result.rows;
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get reviews" });
@@ -325,7 +351,7 @@ export const getUser = async (req: Request, res: Response) => {
     const result: any = await connection.execute(query);
     await connection.close();
     const re = result.rows;
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get user" });
@@ -382,7 +408,7 @@ export const getGamesOrdered = async (req: Request, res: Response) => {
 export const getCollections = async (req: Request, res: Response) => {
   try {
     const { personid, collectionid } = req.query;
-    console.log(personid, collectionid);
+    // console.log(personid, collectionid);
     const connection = await oracledb.getConnection(con);
     const query = `SELECT
     GAMEID AS "gameid",
@@ -398,7 +424,7 @@ export const getCollections = async (req: Request, res: Response) => {
     ]);
     await connection.close();
     const re = result.rows;
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get collections" });
@@ -413,16 +439,16 @@ export const getCollectionFolder = async (req: Request, res: Response) => {
     const query = `SELECT
     ID AS "id",
     NAME AS "name",
-    DESCRIPTION AS "description"
+    DESCRIPTION AS "description",
     PERSONID AS "personid"
-  FROM
+    FROM
     COLLECTION_FOLDER
-  WHERE
+    WHERE
     PERSONID = :personid`;
     const result: any = await connection.execute(query, [personid]);
     await connection.close();
     const re = result.rows;
-    console.log(re);
+    // console.log(re);
     res.status(200).json(re);
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't get collections" });
@@ -432,10 +458,10 @@ export const getCollectionFolder = async (req: Request, res: Response) => {
 export const addCollectionFolder = async (req: Request, res: Response) => {
   try {
     const { id, name, description, personid } = req.body;
-    console.log(name, description, personid);
+    // console.log(name, description, personid);
     const connection = await oracledb.getConnection(con);
     const query = `BEGIN
-    INSERT INTO COLLECTION (NAME, DESCRIPTION, PERSONID)
+    INSERT INTO COLLECTION_FOLDER (NAME, DESCRIPTION, PERSONID)
     VALUES (:name, :description, :personid);
     END;`;
     const result: any = await connection.execute(
@@ -446,7 +472,7 @@ export const addCollectionFolder = async (req: Request, res: Response) => {
       }
     );
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(201).json({ msg: "success" });
   } catch (error: any) {
     res.status(500).json({ msg: error.message || "can't add collection" });
@@ -456,7 +482,7 @@ export const addCollectionFolder = async (req: Request, res: Response) => {
 export const addGameToCollection = async (req: Request, res: Response) => {
   try {
     const { gameid, collectionid, personid } = req.body;
-    console.log(gameid, collectionid, personid);
+    // console.log(gameid, collectionid, personid);
     const connection = await oracledb.getConnection(con);
     const query = `BEGIN
     INSERT INTO COLLECTION_GAME (GAMEID, COLLECTIONID, PERSONID)
@@ -470,12 +496,83 @@ export const addGameToCollection = async (req: Request, res: Response) => {
       }
     );
     await connection.close();
-    console.log(result);
+    // console.log(result);
     res.status(201).json({ msg: "success" });
   } catch (error: any) {
     res
       .status(500)
       .json({ msg: error.message || "can't add game to collection" });
+  }
+};
+
+export const addEvent = async (req: Request, res: Response) => {
+  try {
+    const { title, description, organizer, image } = req.body;
+    // console.log(title, description, organizer, image);
+
+    const connection = await oracledb.getConnection(con);
+    const query = `BEGIN
+    INSERT INTO EVENT (TITLE, DESCRIPTION, ORGANIZER, IMAGE)
+    VALUES (:title, :description, :organizer, :image);
+    END;`;
+    const result: any = await connection.execute(
+      query,
+      [title, description, organizer, image],
+      {
+        autoCommit: true,
+      }
+    );
+    await connection.close();
+    // console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't add event" });
+  }
+};
+
+export const getEvents = async (req: Request, res: Response) => {
+  try {
+    const connection = await oracledb.getConnection(con);
+    const query = `SELECT
+    ID AS "id",
+    TITLE AS "title",
+    DESCRIPTION AS "description",
+    ORGANIZER AS "organizer",
+    IMAGE AS "image"
+  FROM
+    EVENT`;
+    const result: any = await connection.execute(query);
+    await connection.close();
+    const re = result.rows;
+    // console.log(re);
+    res.status(200).json(re);
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't get events" });
+  }
+};
+
+export const registerPublisher = async (req: Request, res: Response) => {
+  try {
+    const { personid, name, bio, socialmedialink } = req.body;
+    console.log(personid, name, bio, socialmedialink);
+    const connection = await oracledb.getConnection(con);
+    const query = `BEGIN
+    INSERT INTO PUBLISHER (F_UID, NAME, DESCRIPTION)
+    VALUES (:personid, :name, :bio);
+    END;`;
+    const result: any = await connection.execute(
+      query,
+      [personid, name, bio, socialmedialink],
+      {
+        autoCommit: true,
+      }
+    );
+
+    await connection.close();
+    // console.log(result);
+    res.status(201).json({ msg: "success" });
+  } catch (error: any) {
+    res.status(500).json({ msg: error.message || "can't register publisher" });
   }
 };
 

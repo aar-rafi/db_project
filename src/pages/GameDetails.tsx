@@ -14,8 +14,8 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
 import CollectionMenu from "../components/CollectionMenu";
-import CommentButton from "../components/CommentButton";
-import CommentList from "../components/CommentList";
+import CommentButton from "../components/ReviewButton";
+import CommentList from "../components/ReviewList";
 import CoolNavbar from "../components/CoolNavbar";
 import Divider from "../components/Divider";
 import ExpandableText from "../components/ExpandableText";
@@ -106,9 +106,9 @@ const GameDetails = () => {
 
       <GameTrailers gameId={game.id} />
       <Box p={10}>
-        <Heading>Comments</Heading>
+        <Heading>Game Reviews</Heading>
         <Divider />
-        {user ? (
+        {/* {user ? (
           <CommentButton gameId={game.id} userid={user.uid} />
         ) : (
           <Card size="sm">
@@ -116,7 +116,7 @@ const GameDetails = () => {
               <Text>Please login to comment</Text>
             </CardBody>
           </Card>
-        )}
+        )} */}
         <CommentList gameid={game.id} />
       </Box>
     </>

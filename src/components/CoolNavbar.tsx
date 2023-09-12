@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
             <Button
               variant="ghost"
               _hover={{ color: "yellow" }}
-              onClick={() => navigate("/collections")}
+              onClick={() => navigate("/collection")}
             >
               Collections
             </Button>

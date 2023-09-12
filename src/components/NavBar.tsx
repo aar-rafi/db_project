@@ -37,7 +37,7 @@ const NavBar = () => {
         color={"green.200"}
         variant="ghost"
         _hover={{ color: "yellow" }}
-        onClick={() => navigate("/collections")}
+        onClick={() => navigate("/collection")}
       >
         Collections
       </Button>
@@ -48,6 +48,22 @@ const NavBar = () => {
         onClick={() => navigate("/wishlist")}
       >
         Wishlist
+      </Button>
+      <Button
+        color={"green.200"}
+        variant="ghost"
+        _hover={{ color: "yellow" }}
+        onClick={() => navigate("/publisherreg")}
+      >
+        PUBLISHER
+      </Button>
+      <Button
+        color={"green.200"}
+        variant="ghost"
+        _hover={{ color: "yellow" }}
+        onClick={() => navigate("/event-create")}
+      >
+        EVENTS
       </Button>
       <ColorModeSwitch />
       <UserAvatar />

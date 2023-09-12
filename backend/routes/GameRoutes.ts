@@ -16,6 +16,9 @@ import {
   addGameToCollection,
   getCollectionFolder,
   getCollections,
+  addEvent,
+  registerPublisher,
+  decreaseRatingCount,
 } from "../controller/GameController";
 import oratest from "../oracletest";
 
@@ -39,5 +42,8 @@ router.get("/getCollectionFolder", getCollectionFolder);
 router.get("/getCollections", getCollections);
 router.post("/addToCollection", addGameToCollection);
 router.post("/addCollectionFolder", addCollectionFolder);
+router.post("/addEvent", addEvent);
+router.post("/registerPublisher", registerPublisher);
+router.patch("/decreaseRatingCount", decreaseRatingCount);
 
 export default router;

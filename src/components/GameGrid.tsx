@@ -6,22 +6,22 @@ import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
 const GameGrid = () => {
-  const searchText = useGameQueryStore((s) => s.setPage);
+  // const searchText = useGameQueryStore((s) => s.setPage);
   const { gameQuery } = useGameQueryStore();
-  const { page } = gameQuery;
+  // const { page } = gameQuery;
   // searchText(1);
   const { data, error, isLoading } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   if (error) return <Text>{error.message}</Text>;
   // const page = 1;
-  const handleButtonClick = (i: number) => {
-    // console.log(page);
-    if (page) {
-      if (page + i < 1) return;
-      searchText(page + i);
-    }
-  };
+  // const handleButtonClick = (i: number) => {
+  //   // console.log(page);
+  //   if (page) {
+  //     if (page + i < 1) return;
+  //     searchText(page + i);
+  //   }
+  // };
 
   return (
     <>
@@ -42,8 +42,8 @@ const GameGrid = () => {
           </GameCardContainer>
         ))}
       </SimpleGrid>
-      <Button onClick={() => searchText(2)}>prev</Button>
-      <Button onClick={() => handleButtonClick(1)}>next</Button>
+      {/* <Button onClick={() => searchText(2)}>prev</Button>
+      <Button onClick={() => handleButtonClick(1)}>next</Button> */}
     </>
   );
 };
