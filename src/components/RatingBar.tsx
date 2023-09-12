@@ -43,44 +43,46 @@ const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
 
   const handleRatingClick = async (ratingTitle: string) => {
     try {
-      if (selectedRating === ratingTitle) {
+      if (selectedRating != ratingTitle) {
         // If the same rating is clicked again, deselect it
-        setSelectedRating(null);
-        await apiServer.patch("/updateRating", {
-          ...reqBody,
-          incrementValue: -1,
-          ratingId: updatedData?.find((rating) => rating.title === ratingTitle)
-            ?.ratingid,
-          title: ratingTitle,
-        });
-        rat_lav_fetch();
-      } else {
+        //   setSelectedRating(null);
+        //   await apiServer.patch("/updateRating", {
+        //     ...reqBody,
+        //     incrementValue: -1,
+        //     ratingId: updatedData?.find((rating) => rating.title === ratingTitle)
+        //       ?.ratingid,
+        //     title: ratingTitle,
+        //   });
+        //   rat_lav_fetch();
+        // } else {
         // let in_value = 1;
+        const present_ratingLevel = reviews?.find(
+          (review) => review.personid === userid
+        )?.rating_level;
         if (
-          reviews?.find((review) => review.personid === userid)?.rating_level !=
-          ratingTitle
+          present_ratingLevel !== ratingTitle &&
+          present_ratingLevel !== "none"
         ) {
           apiServer.patch("/decreaseRatingCount", {
-            gameId: game.id,
-            ratingId: updatedData?.find(
-              (rating) =>
-                rating.title ===
-                reviews?.find((review) => review.personid === userid)
-                  ?.rating_level
+            gameid: game.id,
+            personid: userid,
+            ratingid: updatedData?.find(
+              (rating) => rating.title === present_ratingLevel
             )?.ratingid,
           });
           rat_lav_fetch();
           // in_value = -1;
         }
-        setSelectedRating(ratingTitle);
         await apiServer.patch("/updateRating", {
           ...reqBody,
-          incrementValue: 1,
+          incrementValue: present_ratingLevel === ratingTitle ? -1 : 1,
           ratingId: updatedData?.find((rating) => rating.title === ratingTitle)
             ?.ratingid,
-          title: ratingTitle,
+          title: present_ratingLevel === ratingTitle ? "none" : ratingTitle,
         });
+        rat_lav_fetch();
         // ho;
+        setSelectedRating(ratingTitle);
       }
       const uD = updatedData?.map((rating) => {
         if (rating.title === ratingTitle) {
@@ -99,6 +101,7 @@ const RatingBar: React.FC<{ game: Game; userid?: string }> = ({
 
       // Update the local state with the updated data
       setUpdatedData(uD!);
+      rev_fetch();
     } catch (error) {
       console.error("Error adding to wishlist:", error);
     }

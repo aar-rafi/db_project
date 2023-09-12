@@ -217,14 +217,17 @@ export const updateRating = async (req: Request, res: Response) => {
 
 export const decreaseRatingCount = async (req: Request, res: Response) => {
   try {
-    const { gameId, ratingId } = req.body;
-    // console.log(gameId, ratingId);
+    const { gameid, ratingid, personid } = req.body;
+    console.log(gameid, ratingid, personid);
     const connection = await oracledb.getConnection(con);
-    const query = `UPDATE GAME_RATING SET RATING_COUNT= RATING_COUNT -1
-    WHERE GAMEID=:gameid AND RATINGID=:ratingid`;
-    const result: any = await connection.execute(query, [gameId, ratingId]);
+    const query = `
+    BEGIN
+    UPDATE GAME_RATING SET RATING_COUNT=RATING_COUNT-1 WHERE GAMEID=:gameid AND RATINGID=:ratingid;
+    END;`;
+    const result: any = await connection.execute(query, [gameid, ratingid]);
+    //
     await connection.close();
-    // console.log(result);
+    console.log(result);
     res.status(204).json({ msg: "success" });
   } catch (error: any) {
     res
