@@ -12,9 +12,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CollectionMenu from "../components/CollectionMenu";
-import CommentButton from "../components/ReviewButton";
+import ReviewButton from "../components/ReviewButton";
 import CommentList from "../components/ReviewList";
 import CoolNavbar from "../components/CoolNavbar";
 import Divider from "../components/Divider";
@@ -27,6 +27,7 @@ import WishlistButton from "../components/WishlistButton";
 import { auth } from "../firebase/firebaseconfig";
 import useGame from "../hooks/useGame";
 import styles from "./Details.module.css";
+import GameEvents from "../components/GameEvents";
 
 const GameDetails = () => {
   const toast = useToast();
@@ -109,7 +110,7 @@ const GameDetails = () => {
         <Heading>Game Reviews</Heading>
         <Divider />
         {/* {user ? (
-          <CommentButton gameId={game.id} userid={user.uid} />
+          <ReviewButton gameId={game.id} userid={user.uid} />
         ) : (
           <Card size="sm">
             <CardBody bgColor="tomato">
@@ -118,6 +119,16 @@ const GameDetails = () => {
           </Card>
         )} */}
         <CommentList gameid={game.id} />
+      </Box>
+      <Box p={10}>
+        <Heading>Events</Heading>
+        <Divider />
+        <Flex justify={"center"}>
+          <Link to={`/eventForm/${game.id}`}>
+            <Button colorScheme="green">Create Events</Button>
+          </Link>
+        </Flex>
+        <GameEvents gameid={game.id} />
       </Box>
     </>
   );

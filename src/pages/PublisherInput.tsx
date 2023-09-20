@@ -20,6 +20,7 @@ import Platform from "../data/PARENT_PLATFORM.json";
 import Tag from "../data/TAG.json";
 import Esrbrating from "../data/ESRB_RATING.json";
 import { useNavigate } from "react-router-dom";
+import { parse } from "path";
 
 // Step1.tsx
 const opt = [
@@ -405,7 +406,21 @@ const PublisherInputForm: React.FC = () => {
             <Button mt="3%" colorScheme="teal" onClick={handlePreviousStep}>
               Prev
             </Button>
-            <Button mt="3%" colorScheme="orange" onClick={() => navigate("/")}>
+            <Button
+              mt="3%"
+              colorScheme="orange"
+              onClick={() => {
+                let it = localStorage.getItem("showItem");
+                if (it === null) {
+                  it = "0";
+                  localStorage.setItem("showItem", it.toString());
+                } else {
+                  let t = parseInt(it!) + 1;
+                  localStorage.setItem("showItem", t.toString());
+                }
+                navigate(-1);
+              }}
+            >
               Submit
             </Button>
           </Flex>

@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerPublisher = exports.getEvents = exports.addEvent = exports.addGameToCollection = exports.addCollectionFolder = exports.getCollectionFolder = exports.getCollections = exports.getGamesOrdered = exports.getUser = exports.getReviews = exports.addReview = exports.addPublid = exports.getRatingLevel = exports.decreaseRatingCount = exports.updateRating = exports.removeFromWishlist = exports.getWishlist = exports.registerUser = exports.addToWishlist = exports.getParentPlatform = exports.getGenre = void 0;
+exports.getCollectionGames = exports.addToCollections = exports.getPublisherGames = exports.getPublisher = exports.getGameEvents = exports.updateParticipateLike = exports.getParticipation = exports.getEventDetails = exports.addParticipate = exports.updateReiewLike = exports.registerPublisher = exports.getEvents = exports.addEvent = exports.addGameToCollection = exports.addCollectionFolder = exports.getCollectionFolder = exports.getCollections = exports.getGamesOrdered = exports.getUser = exports.getReviews = exports.addReview = exports.addPublid = exports.getRatingLevel = exports.decreaseRatingCount = exports.updateRating = exports.removeFromWishlist = exports.getWishlist = exports.registerUser = exports.addToWishlist = exports.getParentPlatform = exports.getGenre = void 0;
 const client_1 = require("@prisma/client");
 const oracletest_1 = require("../oracletest");
 const oracledb_1 = __importDefault(require("oracledb"));
@@ -503,18 +503,18 @@ const addGameToCollection = async (req, res) => {
 exports.addGameToCollection = addGameToCollection;
 const addEvent = async (req, res) => {
     try {
-        const { title, description, organizer, image } = req.body;
+        const { title, description, organizer, image, gameid } = req.body;
         // console.log(title, description, organizer, image);
         const connection = await oracledb_1.default.getConnection(oracletest_1.con);
         const query = `BEGIN
-    INSERT INTO EVENT (TITLE, DESCRIPTION, ORGANIZER, IMAGE)
-    VALUES (:title, :description, :organizer, :image);
+    INSERT INTO EVENTS (TITLE, DESCRIPTION, ORGANIZER, IMAGE, GAMEID,ONGOING)
+    VALUES (:title, :description, :organizer, :image, :gameid,1);
     END;`;
-        const result = await connection.execute(query, [title, description, organizer, image], {
+        const result = await connection.execute(query, [title, description, organizer, image, gameid], {
             autoCommit: true,
         });
         await connection.close();
-        // console.log(result);
+        console.log(result);
         res.status(201).json({ msg: "success" });
     }
     catch (error) {
@@ -530,13 +530,15 @@ const getEvents = async (req, res) => {
     TITLE AS "title",
     DESCRIPTION AS "description",
     ORGANIZER AS "organizer",
-    IMAGE AS "image"
-  FROM
-    EVENT`;
+    IMAGE AS "image",
+    ONGOING as "ongoing",
+    EVENT_DATE AS "date"
+    FROM
+    EVENTS`;
         const result = await connection.execute(query);
         await connection.close();
         const re = result.rows;
-        // console.log(re);
+        console.log(re);
         res.status(200).json(re);
     }
     catch (error) {
@@ -546,14 +548,14 @@ const getEvents = async (req, res) => {
 exports.getEvents = getEvents;
 const registerPublisher = async (req, res) => {
     try {
-        const { personid, name, bio, socialmedialink } = req.body;
+        const { personid, name, bio, socialmedialink, profile_picture } = req.body;
         console.log(personid, name, bio, socialmedialink);
         const connection = await oracledb_1.default.getConnection(oracletest_1.con);
         const query = `BEGIN
-    INSERT INTO PUBLISHER (F_UID, NAME, DESCRIPTION)
-    VALUES (:personid, :name, :bio);
+    INSERT INTO PUBLISHER (F_UID, NAME, DESCRIPTION,IMAGE,GAMES_COUNT)
+    VALUES (:personid, :name, :bio,:profile_picture,0);
     END;`;
-        const result = await connection.execute(query, [personid, name, bio, socialmedialink], {
+        const result = await connection.execute(query, [personid, name, bio, socialmedialink, profile_picture], {
             autoCommit: true,
         });
         await connection.close();
@@ -565,6 +567,267 @@ const registerPublisher = async (req, res) => {
     }
 };
 exports.registerPublisher = registerPublisher;
+const updateReiewLike = async (req, res) => {
+    try {
+        const { gameid, personid } = req.body;
+        console.log(gameid, personid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    UPDATE REVIEWS SET LIKE_COUNT=NVL(LIKE_COUNT,0)+1 WHERE GAMEID=:gameid AND PERSONID=:personid`;
+        const result = await connection.execute(query, [gameid, personid], {
+            autoCommit: true,
+        });
+        await connection.close();
+        console.log(result);
+        res.status(201).json({ msg: "success" });
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't update review like" });
+    }
+};
+exports.updateReiewLike = updateReiewLike;
+const addParticipate = async (req, res) => {
+    try {
+        const { eventid, personid, firstName, streamLink } = req.body;
+        console.log(eventid, personid, firstName, streamLink);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    INSERT INTO PARTICIPATION (EVENTID, PERSONID,NAME, YTLINK,PARTICIPATION_DATE) VALUES (:eventid, :personid, :firstName, :streamLink,sysdate)`;
+        const result = await connection.execute(query, [eventid, personid, firstName, streamLink], {
+            autoCommit: true,
+        });
+        await connection.close();
+        console.log(result);
+        res.status(201).json({ msg: "success" });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ msg: error.message || "can't add participate to event" });
+    }
+};
+exports.addParticipate = addParticipate;
+const getEventDetails = async (req, res) => {
+    try {
+        const { id } = req.query;
+        console.log(id);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `SELECT
+    ID AS "id",
+    TITLE AS "title",
+    DESCRIPTION AS "description",
+    ORGANIZER AS "organizer",
+    IMAGE AS "image",
+    ONGOING as "ongoing",
+    EVENT_DATE AS "date"
+    FROM
+    EVENTS
+    WHERE ID=:id`;
+        const result = await connection.execute(query, [id]);
+        await connection.close();
+        const re = result.rows;
+        const json = JSON.stringify(re[0]);
+        // console.log(json);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get event details" });
+    }
+};
+exports.getEventDetails = getEventDetails;
+const getParticipation = async (req, res) => {
+    try {
+        const { id } = req.query;
+        console.log("pa" + id);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    SELECT
+    NAME as "participator_name",
+    PERSONID AS "participator_id",
+    PARTICIPATION_DATE AS "participation_date",
+    YTLINK AS "ytlink",
+    LIKES AS "likes"
+    FROM
+    PARTICIPATION
+    WHERE EVENTID=:id
+    `;
+        const result = await connection.execute(query, [id]);
+        await connection.close();
+        const re = result.rows;
+        // console.log(re);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ msg: error.message || "can't get participation details" });
+    }
+};
+exports.getParticipation = getParticipation;
+const updateParticipateLike = async (req, res) => {
+    try {
+        const { eventid, personid } = req.body;
+        console.log(eventid, personid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    UPDATE PARTICIPATION SET LIKES=NVL(LIKES,0)+1 WHERE EVENTID=:eventid AND PERSONID=:personid`;
+        const result = await connection.execute(query, [eventid, personid], {
+            autoCommit: true,
+        });
+        await connection.close();
+        console.log(result);
+        res.status(201).json({ msg: "success" });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ msg: error.message || "can't update participate like" });
+    }
+};
+exports.updateParticipateLike = updateParticipateLike;
+const getGameEvents = async (req, res) => {
+    try {
+        const { gameid } = req.query;
+        console.log(gameid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    SELECT
+    ID AS "id",
+    TITLE AS "title",
+    DESCRIPTION AS "description",
+    ORGANIZER AS "organizer",
+    IMAGE AS "image",
+    ONGOING as "ongoing",
+    EVENT_DATE AS "date"
+    FROM
+    EVENTS
+    WHERE GAMEID=:gameid`;
+        const result = await connection.execute(query, [gameid]);
+        await connection.close();
+        const re = result.rows;
+        // const json = JSON.stringify(re);
+        // console.log(json);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get event details" });
+    }
+};
+exports.getGameEvents = getGameEvents;
+const getPublisher = async (req, res) => {
+    try {
+        const { fid } = req.query;
+        console.log(fid);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        // const query = `
+        // SELECT
+        // ID AS "id",
+        // NAME AS "name",
+        // DESCRIPTION AS "description",
+        // IMAGE AS "image",
+        // GAMES_COUNT AS "games_count",
+        // F_UID AS "f_uid"
+        // FROM
+        // PUBLISHER
+        // WHERE F_UID = :uid`;
+        const query = `
+  SELECT
+    ID AS "id",
+    NAME AS "name",
+    DESCRIPTION AS "description",
+    IMAGE AS "image",
+    GAMES_COUNT AS "games_count",
+    F_UID AS "f_uid"
+  FROM
+    PUBLISHER
+  WHERE F_UID = :fid`;
+        const result = await connection.execute(query, [fid]);
+        await connection.close();
+        const re = result.rows;
+        // const json = JSON.stringify(re);
+        // console.log(json);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get publisher" });
+    }
+};
+exports.getPublisher = getPublisher;
+const getPublisherGames = async (req, res) => {
+    try {
+        const { id } = req.query;
+        console.log(id);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    SELECT
+    ID AS "id",
+    NAME AS "name",
+    SLUG AS "slug",
+    DESCRIPTION AS "description",
+    BACKGROUND_IMAGE AS "background_image",
+    METACRITIC AS "metacritic"
+    FROM
+    GAME
+    WHERE PUBLISHERID =:id`;
+        const result = await connection.execute(query, [id]);
+        await connection.close();
+        const re = result.rows;
+        // const json = JSON.stringify(re);
+        // console.log(json);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res.status(500).json({ msg: error.message || "can't get publisher" });
+    }
+};
+exports.getPublisherGames = getPublisherGames;
+const addToCollections = async (req, res) => {
+    try {
+        const { personid, collectionid, gameid } = req.body;
+        console.log(personid, collectionid, gameid, "ek");
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    INSERT INTO GAME_SITE.COLLECTION (PERSONID, COLLECTIONID, GAMEID) VALUES (:personid, :collectionid, :gameid)`;
+        const result = await connection.execute(query, [personid, collectionid, gameid], {
+            autoCommit: true,
+        });
+        await connection.close();
+        console.log(result);
+        res.status(201).json({ msg: "success" });
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ msg: error.message || "can't add game to collection" });
+    }
+};
+exports.addToCollections = addToCollections;
+const getCollectionGames = async (req, res) => {
+    try {
+        const { id } = req.query;
+        console.log(id);
+        const connection = await oracledb_1.default.getConnection(oracletest_1.con);
+        const query = `
+    SELECT
+    GAMEID AS "gameid",
+    DESCRIPTION AS "description",
+    FROM
+    GAME g JOIN COLLECTION c ON c.GAMEID = g.ID WHERE c.COLLECTIONID =:id`;
+        const result = await connection.execute(query, [id]);
+        await connection.close();
+        const re = result.rows;
+        // const json = JSON.stringify(re);
+        // console.log(json);
+        res.status(200).json(re);
+    }
+    catch (error) {
+        res
+            .status(500)
+            .json({ msg: error.message || "can't get collection games" });
+    }
+};
+exports.getCollectionGames = getCollectionGames;
+/** */
 //export const getGames =
 // async function getGame() {
 //   const response = await prisma.game.findMany();

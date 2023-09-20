@@ -414,6 +414,7 @@ const userData = {
   //   password: "your_password",
   bio: "Some bio text",
   socialmedialink: "https://example.com/johndoe",
+  profile_picture: "https://example.com/johndoe/profile_pic.jpg",
 };
 
 const PublisherReg = () => {
@@ -443,7 +444,10 @@ const PublisherReg = () => {
       const user = userCredential.user;
       console.log(user);
       const profilePic = uploadedFile;
-      const storageRef = ref(storage, `users_pic/${user.uid}/profile_pic.jpg`);
+      const storageRef = ref(
+        storage,
+        `publisher_pic/${user.uid}/profile_pic.jpg`
+      );
       if (profilePic) {
         await uploadBytes(storageRef, profilePic)
           .then((snapshot) => {
@@ -472,6 +476,7 @@ const PublisherReg = () => {
       userData.name = username;
       userData.bio = bio;
       userData.socialmedialink = socialHandles;
+      userData.profile_picture = profilePicUrl;
 
       apiServer
         .post("/registerPublisher", userData)
@@ -489,6 +494,7 @@ const PublisherReg = () => {
         duration: 3000,
         isClosable: true,
       });
+      localStorage.setItem("userType", "publisher");
       setLoading(false);
       navigate("/");
     } catch (error: any) {

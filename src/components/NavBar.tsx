@@ -33,35 +33,42 @@ const NavBar = () => {
       <SiteIcon boxs={"65"} />
 
       <SearchInput />
-      <Button
-        color={"green.200"}
-        variant="ghost"
-        _hover={{ color: "yellow" }}
-        onClick={() => navigate("/collection")}
-      >
-        Collections
-      </Button>
-      <Button
-        color={"green.200"}
-        variant="ghost"
-        _hover={{ color: "yellow" }}
-        onClick={() => navigate("/wishlist")}
-      >
-        Wishlist
-      </Button>
-      <Button
+      {localStorage.getItem("userType") === "person" ? (
+        <>
+          <Button
+            color={"green.200"}
+            variant="ghost"
+            _hover={{ color: "yellow" }}
+            onClick={() => navigate("/collection")}
+          >
+            Collections
+          </Button>
+          <Button
+            color={"green.200"}
+            variant="ghost"
+            _hover={{ color: "yellow" }}
+            onClick={() => navigate("/wishlist")}
+          >
+            Wishlist
+          </Button>
+        </>
+      ) : (
+        <></>
+      )}
+
+      {/* <Button
         color={"green.200"}
         variant="ghost"
         _hover={{ color: "yellow" }}
         onClick={() => navigate("/publisherreg")}
       >
         PUBLISHER
-      </Button>
+      </Button> */}
       <Button
         color={"green.200"}
         variant="ghost"
         _hover={{ color: "yellow" }}
-        onClick={() => navigate("/event-create")}
+        onClick={() => navigate("/event")}
       >
         EVENTS
       </Button>

@@ -14,7 +14,7 @@ const Event = () => {
   // );
   return (
     <div>
-      <YoutubeVideo />
+      <YoutubeVideo url="https://www.youtube.com/watch?v=Z95ulFv2eig&ab_channel=Avxry" />
     </div>
   );
 };

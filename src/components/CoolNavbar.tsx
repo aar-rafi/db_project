@@ -56,23 +56,26 @@ const Navbar: React.FC = () => {
           <Box width={"xl"} bg="black" borderRadius={"20px"} opacity="60%">
             <SearchInput />
           </Box>
-
-          <Box marginLeft={"10"}>
-            <Button
-              variant="ghost"
-              _hover={{ color: "yellow" }}
-              onClick={() => navigate("/collection")}
-            >
-              Collections
-            </Button>
-            <Button
-              variant="ghost"
-              _hover={{ color: "yellow" }}
-              onClick={() => navigate("/wishlist")}
-            >
-              Wishlist
-            </Button>
-          </Box>
+          {localStorage.getItem("userType") === "person" ? (
+            <Box marginLeft={"10"}>
+              <Button
+                variant="ghost"
+                _hover={{ color: "yellow" }}
+                onClick={() => navigate("/collection")}
+              >
+                Collections
+              </Button>
+              <Button
+                variant="ghost"
+                _hover={{ color: "yellow" }}
+                onClick={() => navigate("/wishlist")}
+              >
+                Wishlist
+              </Button>
+            </Box>
+          ) : (
+            <></>
+          )}
           <UserAvatar />
         </Flex>
       )}

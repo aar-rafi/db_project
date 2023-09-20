@@ -17,7 +17,14 @@ const CollectionMenu: React.FC<{ puid: string; gameId: number }> = ({
         personid: puid,
       };
 
-      await apiServer.post("/addToCollection", requestBody);
+      await apiServer
+        .post("/addToCollections", requestBody)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       console.error("Error adding to collection:", error);
     }

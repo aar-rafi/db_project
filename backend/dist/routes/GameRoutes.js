@@ -26,7 +26,18 @@ router.get("/getCollections", GameController_1.getCollections);
 router.post("/addToCollection", GameController_1.addGameToCollection);
 router.post("/addCollectionFolder", GameController_1.addCollectionFolder);
 router.post("/addEvent", GameController_1.addEvent);
+router.get("/getEvents", GameController_1.getEvents);
 router.post("/registerPublisher", GameController_1.registerPublisher);
 router.patch("/decreaseRatingCount", GameController_1.decreaseRatingCount);
+router.patch("/updateReviewLike", GameController_1.updateReiewLike);
+router.post("/addParticipate", GameController_1.addParticipate);
+router.get("/getEventDetails", GameController_1.getEventDetails);
+router.get("/getParticipation", GameController_1.getParticipation);
+router.patch("/updateParticipateLike", GameController_1.updateParticipateLike);
+router.get("/getGameEvents", GameController_1.getGameEvents);
+router.get("/getPublisher", GameController_1.getPublisher);
+router.get("/getPublisherGames", GameController_1.getPublisherGames);
+router.post("/addToCollections", GameController_1.addToCollections);
+router.get("/getCollectionGames", GameController_1.getCollectionGames);
 exports.default = router;
 //# sourceMappingURL=GameRoutes.js.map

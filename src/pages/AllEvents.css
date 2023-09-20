@@ -1,0 +1,40 @@
+/* AllEvents.css */
+/* AllEvents.css */
+
+.event-box {
+    position: relative;
+    filter: brightness(0.7) blur(5px); /* Initial dim and blur */
+    transition: filter 0.3s ease, transform 0.3s ease; /* Transition for filter and transform (scaling) */
+  }
+  
+  .event-box:hover {
+    filter: brightness(1) blur(0px); /* Brighten and remove blur on hover */
+    transform: scale(1.05); /* Optional: Add a slight scale-up effect on hover */
+  }
+  
+  .live-event::before {
+    content: "Live";  /*Add the "Live" text */
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    color: red; /* Customize the color of the "Live" text */
+    animation: blink 1s infinite; /* Blinking animation for "Live" text */
+  }
+  
+  @keyframes blink {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+
+
+  

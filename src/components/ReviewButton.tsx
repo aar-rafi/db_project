@@ -11,7 +11,7 @@ interface CommentProps {
   refresh: () => void;
 }
 
-const CommentButton = ({ gameId, userid, refresh }: CommentProps) => {
+const ReviewButton = ({ gameId, userid, refresh }: CommentProps) => {
   // const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
 
@@ -58,4 +58,4 @@ const CommentButton = ({ gameId, userid, refresh }: CommentProps) => {
   );
 };
 
-export default CommentButton;
+export default ReviewButton;

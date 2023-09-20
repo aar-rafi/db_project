@@ -17,7 +17,7 @@ import { login } from "../firebase/firebaseconfig";
 import Divider from "../components/Divider";
 import Sidebar from "../components/Sidebar";
 
-const Login = () => {
+const PublisherLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -31,9 +31,9 @@ const Login = () => {
     try {
       const userCre = await login(email, password);
       //await signup(email, password);
-      localStorage.setItem("userType", "person");
+      localStorage.setItem("userType", "publisher");
       console.log(userCre);
-      navigate(-1);
+      navigate(`/publisher/${userCre.user?.uid}`);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,7 @@ const Login = () => {
           as="form"
         >
           <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-            User Login
+            Publisher Login
           </Heading>
 
           <Flex>
@@ -110,9 +110,9 @@ const Login = () => {
             Login
           </Button>
           <Button variant="link" mt="2%" colorScheme="teal" w="100%">
-            <Text>New user?</Text>
+            <Text>New Publisher?</Text>
 
-            <Link to={"/registration"}>Registration</Link>
+            <Link to={"/publisherreg"}>Registration</Link>
           </Button>
         </Box>
       </Flex>
@@ -120,4 +120,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default PublisherLogin;

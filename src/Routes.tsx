@@ -17,6 +17,11 @@ import CollectionsPage from "./pages/Collection";
 import EventForm from "./pages/EventForm";
 import PublisherReg from "./pages/PublisherReg";
 import Event from "./pages/Event";
+import AllEvents from "./pages/AllEvents";
+import EventDetails from "./pages/EventDetails";
+import PublisherLogin from "./pages/PublisherLogin";
+import PublisherProfile from "./pages/PublisherProfile";
+import CollectionShow from "./pages/CollectionShow";
 
 const routes = createBrowserRouter([
   {
@@ -38,18 +43,18 @@ const routes = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "wishlist", element: <Wishlist /> },
       // { path: "test", element: <RegisterForm /> },
-      { path: "pub", element: <PublisherInputForm /> },
       { path: "collection", element: <CollectionsPage /> },
-      { path: "event-create", element: <EventForm /> },
+      { path: "eventForm/:gameid", element: <EventForm /> },
+      { path: "addGame", element: <PublisherInputForm /> },
       {
         path: "publisherreg",
-        element: (
-          <AuthRoutes>
-            <PublisherReg />
-          </AuthRoutes>
-        ),
+        element: <PublisherReg />,
       },
-      { path: "event", element: <Event /> },
+      { path: "publisherLogin", element: <PublisherLogin /> },
+      { path: "publisher/:uid", element: <PublisherProfile /> },
+      { path: "event", element: <AllEvents /> },
+      { path: "event/:eventid", element: <EventDetails /> },
+      { path: "collection/:id", element: <CollectionShow /> },
     ],
   },
 ]);

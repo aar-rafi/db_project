@@ -15,7 +15,8 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { auth } from "../firebase/firebaseconfig";
 import useReviews, { Review } from "../hooks/useReviews";
 import useUser, { User } from "../hooks/useUser"; // Make sure to import the User type
-import CommentButton from "./ReviewButton";
+import apiServer from "../services/api-server";
+import ReviewButton from "./ReviewButton";
 
 interface Custom extends Review {
   pic: string | null;
@@ -25,7 +26,7 @@ const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
   const [user] = useAuthState(auth);
   const { data: reviews, refetch } = useReviews(gameid);
   const { data: persons } = useUser();
-  const rating_lev = reviews?.map((review) => review.rating_level);
+  // const rating_lev = reviews?.map((review) => review.rating_level);
 
   const [newreviews, setreviews] = useState<Custom[]>([]);
 
@@ -45,7 +46,7 @@ const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
     }
   }, [reviews, persons]);
 
-  const handleLikeClick = (commentId: string) => {
+  const handleLikeClick = async (commentId: string) => {
     setreviews((prevreviews) =>
       prevreviews.map((comment) =>
         comment.personid === commentId
@@ -53,18 +54,33 @@ const CommentList: React.FC<{ gameid: number }> = ({ gameid }) => {
               ...comment,
               like_count:
                 comment.personid === user?.uid
-                  ? comment.like_count - 1
+                  ? comment.like_count
                   : comment.like_count + 1,
             }
           : comment
       )
     );
+    {
+      commentId !== user?.uid &&
+        (await apiServer
+          .patch("/updateReviewLike", {
+            personid: commentId,
+            gameid: gameid,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          }));
+    }
+    refetch();
   };
 
   return (
     <div>
       {user ? (
-        <CommentButton gameId={gameid} userid={user.uid} refresh={refetch} />
+        <ReviewButton gameId={gameid} userid={user.uid} refresh={refetch} />
       ) : (
         <Card size="sm">
           <CardBody bgColor="tomato">

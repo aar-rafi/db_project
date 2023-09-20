@@ -492,6 +492,7 @@ export default function Multistep() {
         duration: 3000,
         isClosable: true,
       });
+      localStorage.setItem("userType", "person");
       setLoading(false);
       navigate("/");
     } catch (error: any) {

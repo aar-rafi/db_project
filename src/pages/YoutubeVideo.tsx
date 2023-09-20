@@ -1,8 +1,12 @@
 import React from "react";
 import YouTube from "react-youtube";
 
-const YoutubeVideo = () => {
-  const url = "https://www.youtube.com/watch?v=Z95ulFv2eig&ab_channel=Avxry";
+interface Props {
+  url: string;
+}
+
+const YoutubeVideo = ({ url }: Props) => {
+  const url1 = "https://www.youtube.com/watch?v=Z95ulFv2eig&ab_channel=Avxry";
   // Use a regular expression to extract the video ID
   const videoIdMatch = url.match(/[?&]v=([^&]+)/);
 
