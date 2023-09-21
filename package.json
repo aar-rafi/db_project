@@ -20,6 +20,7 @@
     "@types/react-slick": "^0.23.10",
     "@types/slick-carousel": "^1.6.37",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "firebase": "^10.3.0",
     "framer-motion": "^10.12.18",
     "multiselect-react-dropdown": "^2.0.25",
@@ -38,6 +39,7 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.2",
     "@types/jasmine": "^4.3.5",
     "@types/node": "^20.5.1",
     "@types/noisejs": "^0.0.28",

@@ -1,14 +1,18 @@
 import axios, { AxiosRequestConfig } from "axios";
+// import doten from "dotenv";
+// doten.config({ path: "/mnt/New Volume F/db_project" + "/.env" });
 
 export interface FetchResponse<T> {
   count: number;
   results: T[];
 }
 
+const apiKey = process.env.REACT_APP_APIKEY;
+
 const axiosInstance = axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
-    key: "c65f33dadf43453c941bff3c8a690b8e",
+    key: apiKey,
   },
 });
 

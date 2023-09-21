@@ -50,12 +50,15 @@ import data from "./t.json";
 
 import axios from "axios";
 import fs from "fs";
+import dotenv from "dotenv";
+dotenv.config({ path: "/mnt/New Volume F/db_project/backend" + "/.env" });
+const apikey = process.env.APIKEY;
 
 async function getMovies() {
   const options = {
     method: "GET",
     url: "https://rawg.io/api/games",
-    params: { key: "c65f33dadf43453c941bff3c8a690b8e" },
+    params: { key: apikey },
   };
 
   // const data = ["game1", "game2", "game3"]; // Replace with your data array

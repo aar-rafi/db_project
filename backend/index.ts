@@ -5,7 +5,7 @@ import GameRoutes from "./routes/GameRoutes";
 dotenv.config();
 
 const app = express();
-const port = process.env.APP_PORT || 5000;
+const port = process.env.APP_PORT;
 
 app.use(cors());
 app.use(express.json());
